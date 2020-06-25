@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+    // console.log(hd);
+    // // hd();
+
+    // let hd = function () {
+    //   console.log('hdr');
+    // }
+
+    let arr = [1, 10, 4, 5, 2, 8, 4, 6, 7];
+
+    // 选择排序
+    // for (let i = 0; i < arr.length; i++) {
+    //   for (let j = i + 1; j < arr.length; j++) {
+    //     if (arr[i] > arr[j]) {
+    //       [arr[i], arr[j]] = [arr[j], arr[i]];
+    //     }
+    //   }
+    // }
+
+    // 冒泡排序
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < arr.length - i - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        }
+      }
+    }
+
+
+    console.log(arr);
+    // 快速排序
+    // function quickSort(arr) {
+    //   if (arr.length < 2) {
+    //     return arr;
+    //   }
+
+    //   let base = arr.shift();
+    //   let less = arr.filter(val => val <= base);
+    //   let greater = arr.filter(val => val > base);
+
+    //   // console.log(less);
+    //   // console.log(greater);
+    //   return [...quickSort(less), base, ...quickSort(greater)];
+    // }
+    // console.log(quickSort(arr));
+
+
+
+  </script>
+</body>
+
+</html>

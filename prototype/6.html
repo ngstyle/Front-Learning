@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>继承是原型的继承，改变构造函数原型并不是继承</title>
+</head>
+
+<body>
+
+  <script>
+
+    function User() {
+
+    }
+    User.prototype.name = function () {
+      console.log('user name method');
+    }
+
+    function Admin() {
+    }
+    // ❌的继承方式
+    // 改变构造函数原型并不是继承
+    // 对Admin.prototype的操作，会连父类的原型User.prototype一起修改掉,反之亦然。对象引用
+    // Admin.prototype = User.prototype;  
+
+    Admin.prototype = Object.create(User.prototype); // 可行
+    Admin.prototype.role = function () {
+      console.log('admin role');
+    }
+
+
+    function Member() {
+    }
+    // ❌的继承方式
+    // 改变构造函数原型并不是继承
+    // 对Member.prototype的操作，会连父类的原型User.prototype一起修改掉,反之亦然。对象引用
+    // Member.prototype = User.prototype;
+
+    Member.prototype = Object.create(User.prototype);   // 可行
+    Member.prototype.role = function () {
+      console.log('member role');
+    }
+
+    let a = new Admin();
+    a.name();
+    a.role();
+  </script>
+</body>
+
+</html>

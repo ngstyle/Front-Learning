@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>不规则背景色</title>
+  <style>
+    div {
+      margin: 20px 0;
+    }
+
+    div:nth-child(1) {
+      height: 600px;
+      /* 标识位：渐变区间段， 相同时，无渐变 */
+      background: linear-gradient(90deg, #22A956 10%, red 10%, red 60%, blue 60%);
+      /* background: #22A956 65%; */
+    }
+
+    div:nth-child(2) {
+      height: 8px;
+      background: repeating-linear-gradient(45deg, blue, 8px, red 8px, red 16px);
+    }
+
+    div:nth-child(3) {
+      width: 200px;
+      height: 200px;
+      background: repeating-radial-gradient(100px 100px, red 0%, yellow 20px);
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div></div>
+  <div></div>
+  <div></div>
+
+</body>
+
+</html>

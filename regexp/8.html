@@ -1,0 +1,26 @@
+<!-- 禁止贪婪 -->
+<html>
+
+<body>
+  <main>
+
+    <span>nohc.ml</span>
+    <span>ned.nohc.ml</span>
+    <span>net.nohc.ml</span>
+
+  </main>
+</body>
+
+<script>
+  let main = document.querySelector('main');
+
+  // 禁止贪婪匹配
+  let reg = /<span>([\s\S]+?)<\/span>/gi;
+  main.innerHTML = main.innerHTML.replace(reg, (p0, p1) => {
+    console.log(p0, p1);
+    // console.dir(p0, p1);
+    return `<h4 style="color: red">Tutorial - ${p1}</h4>`;
+  });
+</script>
+
+</html>

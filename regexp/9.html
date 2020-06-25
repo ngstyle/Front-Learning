@@ -1,0 +1,38 @@
+<!-- matchAll -->
+<html>
+
+<body>
+  <main>
+
+    <span>nohc.ml</span>
+    <span>ned.nohc.ml</span>
+    <span>net.nohc.ml</span>
+
+  </main>
+</body>
+
+<script>
+  let main = document.querySelector('main');
+
+  String.prototype.matchAll = function(reg) {
+
+    let res = this.match(reg);
+    console.dir(res);
+    if (res) {
+      let str = this.replace(res[0], "^".repeat(res.length));
+      let match = str.matchAll(reg) || [];
+      return [res, ...match];
+    }
+  };
+
+  let search = main.innerHTML.matchAll(/<span>([\s\S]+?)<\/span>/i);
+  console.log(search);
+
+
+  let date = '2020-10-31';
+  console.log(date.match(/\d{4}([-/])\d{2}\1\d{2}/));
+
+  console.log(date.split(/[-/]/));
+</script>
+
+</html>

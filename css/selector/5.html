@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Event Propagation</title>
+
+  <style>
+    #t-daddy {
+      border: 1px solid red
+    }
+
+    #c1 {
+      background-color: pink;
+    }
+  </style>
+
+
+</head>
+
+<body onload="load();">
+
+  <table id="t-daddy">
+    <tr id="tbl1">
+      <td id="c1"><a href="https://www.baidu.com">百度一下</a>one</td>
+    </tr>
+    <tr>
+      <td id="c2">two</td>
+    </tr>
+  </table>
+
+  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+    A nobis sint magnam earum incidunt labore cum perspiciatis, error nisi, ipsam rem non. Voluptate, aliquam omnis
+    repellendus id impedit voluptates laborum.Lorem ipsum dolor sit, amet consectetur adipisicing elit. A nobis sint
+    magnam earum incidunt labore cum perspiciatis, error nisi, ipsam rem non. Voluptate, aliquam omnis repellendus id
+    impedit voluptates laborum.A nobis sint magnam earum incidunt labore cum perspiciatis, error nisi, ipsam rem non.
+    Voluptate, aliquam omnis repellendus id impedit voluptates laborum.</p>
+
+  <script>
+    function stopEvent(ev) {
+      c2 = document.getElementById("c2");
+      c2.innerHTML = "hello";
+
+      // this ought to keep t-daddy from getting the click.
+      ev.stopPropagation();
+      ev.preventDefault();
+
+      alert("event propagation halted.");
+    }
+
+    function load() {
+      elem = document.getElementById("tbl1");
+      elem.addEventListener("click", stopEvent, false);
+      console.log('load');
+    }
+
+    document.querySelector('table').addEventListener('click', (ev) => {
+      console.log('t-daddy click');
+    });
+  </script>
+</body>
+
+</html>

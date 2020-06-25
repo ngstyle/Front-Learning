@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::after {
+      content: 'houdunren';
+      left: 50%;
+      top: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-size: 2em;
+      opacity: .3;
+    }
+
+    main {
+      flex: 1;
+      position: relative;
+      /* background: blueviolet; */
+    }
+
+    main div {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 30px;
+      transform: translateY(-100%);
+      transition: 1s;
+      z-index: 1;
+    }
+
+    main div:target {
+      transform: translateY(0);
+    }
+
+    main div:nth-child(1):target {
+      background: #e74c3c;
+    }
+
+    main div:nth-child(2):target {
+      background: #8e44ad;
+    }
+
+    main div:nth-child(3):target {
+      background: #2ecc71;
+    }
+
+    nav {
+      height: 8vh;
+      background: #dedede;
+      display: flex;
+    }
+
+    nav a {
+      text-decoration: none;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    nav a:nth-child(n+2) {
+      border-left: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <div id="home">
+      Home
+    </div>
+    <div id="video">
+      Video
+    </div>
+    <div id="live">
+      Live
+    </div>
+  </main>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#video">Video</a>
+    <a href="#live">Live</a>
+  </nav>
+</body>
+
+</html>

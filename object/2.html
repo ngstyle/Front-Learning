@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>解构默认值实现配置项合并</title>
+</head>
+
+<body>
+
+  <script>
+
+    function createElement(options = {}) {
+
+      let {
+        width = 200,
+        height = 300,
+        backgroundColor = 'red'
+      } = options;
+
+      const div = document.createElement('div');
+      div.style.width = width + 'px';
+      div.style.height = height + 'px';
+      div.style.backgroundColor = backgroundColor;
+
+      document.body.appendChild(div);
+    }
+
+    createElement();
+    createElement({ width: 400, backgroundColor: 'green' });
+    createElement({ height: 100, backgroundColor: 'yellow' });
+  </script>
+</body>
+
+</html>

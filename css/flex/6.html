@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      padding: 30px;
+    }
+
+    article {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid blueviolet;
+      color: white;
+      width: 400px;
+    }
+
+    article section {
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      background: blueviolet;
+      background-clip: content-box;
+      box-sizing: border-box;
+    }
+
+    article section div {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    article section span {
+      background: black;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <article>
+
+    <section>
+      <div>Nohchon</div>
+      <span onclick="up(this)">Up</span>
+    </section>
+
+    <section>
+      <div>chonohc</div>
+      <span onclick="up(this)">Up</span>
+    </section>
+
+
+    <section>
+      <div>xxxxx</div>
+      <span onclick="up(this)">Up</span>
+    </section>
+
+  </article>
+
+  <script>
+
+    function up(el) {
+      const order = getComputedStyle(el.parentNode, null).order;
+
+      el.parentNode.style.order = order - 1;
+      console.log(order);
+    }
+
+  </script>
+</body>
+
+</html>

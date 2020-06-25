@@ -1,0 +1,28 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+  <input type="text" name="username">
+</body>
+
+<script>
+  document.querySelector("[name='username']").addEventListener('keyup', e => {
+
+    const value = e.target.value;
+
+    const regs = [
+      /^\w{6,9}$/,
+      /[A-Z]/,
+      /\d/
+    ];
+
+    let state = regs.every(reg => reg.test(value));
+
+    console.log(state ? '满足条件' : '密码格式错误');
+  });
+</script>
+
+</html>

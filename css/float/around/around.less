@@ -1,0 +1,29 @@
+p {
+  img {
+    float: left;
+    padding: 10px;
+    // shape-outside: url(images.png);
+    shape-outside: circle();
+    // shape-outside: inset(50px 30px 80px 50px) padding-box;
+  }
+
+  // span
+  .span {
+    float: left;
+    width: 200px;
+    height: 200px;
+    // border: 10px solid #dedede;
+    padding: 10px;
+    background: #eee;
+    padding: 10px;
+    margin: 10px 10px 10px 0;
+    // shape-outside: margin-box;
+    // white-space: pre-wrap;
+    clip-path: circle(50%);
+    shape-outside: circle(50%);
+
+    // clip-path: ellipse(30% 50%);
+    // clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    // shape-outside: polygon(50% 0, 0 100%, 100% 100%);
+  }
+}

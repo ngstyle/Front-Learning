@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仿京东购物车效果</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      padding: 200px;
+    }
+
+    article {
+      width: 150px;
+      position: relative;
+    }
+
+    article>div {
+      border: 1px solid #ddd;
+      padding: 0 16px;
+      text-align: center;
+      height: 48px;
+      line-height: 3em;
+      background: white;
+    }
+
+    article:hover div:nth-of-type(1) {
+      position: relative;
+      border-bottom: none;
+      border-color: blueviolet;
+      z-index: 2;
+    }
+
+    article:hover div:nth-of-type(2) {
+      border-color: blueviolet;
+      display: block;
+    }
+
+    article div:nth-of-type(2) {
+      width: 300px;
+      position: absolute;
+      right: 0;
+      top: 48px;
+      display: none;
+      z-index: 1;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <article>
+
+    <div>我的购物车</div>
+    <div>购物车中暂无商品</div>
+
+    <!-- <div>xxx</div> -->
+  </article>
+
+</body>
+
+</html>

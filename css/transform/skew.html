@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      box-sizing: border-box;
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main {
+      width: 200px;
+      height: 56px;
+      border: 3px solid #e74c3c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main a {
+      color: white;
+      height: 100%;
+      text-decoration: none;
+      font-size: 30px;
+      position: relative;
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    main a::after {
+      content: '';
+      height: 100%;
+      position: absolute;
+      transform: skew(45deg);
+      /* width: 200%; */
+      width: 0;
+      background-color: #e74c3c;
+      z-index: -1;
+      transition: .4s;
+    }
+
+    a:hover::after {
+      width: 200%;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <main>
+    <a href="">
+      nohchon
+    </a>
+  </main>
+
+
+</body>
+
+</html>

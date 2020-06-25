@@ -1,0 +1,61 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+</body>
+
+<script>
+  let ch = `
+            <h1>Title</h1>
+
+            <span>Content</span>
+
+            <h2>sub-title</h2>
+        `;
+
+  let result = ch.replace(/<(h[1-6])>([\s\S]+)<\/\1>/gi, `<p>$2</p>`)
+
+  //   ch.replace(/<(h[1-6])>([\s\S]+)<\/\1>/gi, () => {
+
+  //   });
+
+  console.log(result);
+
+
+  //   /"(?:[^"\n\\\r\u2028\u2029] | \\(?:['"\\bfnrtv\n\r\u2028\u2029]|\r\n) | \\x[0-9a-fA-F]{2} | \\u[0-9a-fA-F]{4} | \\[^0-9ux'"\\bfnrtv\n\\\r\u2028\u2029] )*"/
+  let ha = /(?:[^"\n\\\r\u2028\u2029]|\\(?:['"\\bfnrtv\n\r\u2028\u2029]|\r\n)|\\x[0-9a-fA-F]{2}|\\u[0-9a-fA-F]{4}|\\[^0-9ux'"\\bfnrtv\n\\\r\u2028\u2029])*/;
+
+  let reg = /^[^"\\\n\r\u2028\u2029]*$/;
+
+
+  let haha = /(?:[^"\n\\\r\u2028\u2029]|\\(?:['"\\bfnrtv\n\r\u2028\u2029]|\r\n)|\\x[0-9a-fA-F]{2}|\\u[0-9a-fA-F]{4}|\\u{(10|1)[0-9a-fA-F]{4}}|\\[^0-9ux'"\\bfnrtv\n\\\r\u2028\u2029])*/
+
+  function encodeUtf8(text) {
+    const code = encodeURIComponent(text);
+    const bytes = [];
+    for (var i = 0; i < code.length; i++) {
+      const c = code.charAt(i);
+      if (c === '%') {
+        const hex = code.charAt(i + 1) + code.charAt(i + 2);
+        const hexVal = parseInt(hex, 16);
+        bytes.push(hexVal);
+        i += 2;
+      } else bytes.push(c.charCodeAt(0));
+    }
+    return bytes;
+  }
+
+  encodeUtf8("𠮷");
+
+  function f(a, ...x) {
+    console.log(a, x);
+  }
+  const b = 1;
+  const y = 11;
+  f `a${b}${y}${b}c`;
+</script>
+
+</html>

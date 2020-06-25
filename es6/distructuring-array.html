@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+
+    </body>
+
+    <script>
+
+        const arr = [1, 2];
+        const [one, two] = arr;
+        console.log(one ,two);
+        
+        const [first, second, third='default'] = arr;
+        console.log(first, second, third);
+
+        // swap value
+        let a = 5;
+        let b = 6;
+
+        console.log(`before a = ${a}, b = ${b}`);
+        [a,b] = [b,a];
+        console.log(`after a = ${a}, b = ${b}`);
+    </script>
+</html>

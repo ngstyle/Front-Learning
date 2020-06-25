@@ -1,0 +1,54 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+</body>
+
+<script>
+  // 十进制普通计数         
+  // let r1_1 = /^[+-]?(0|[1-9]\d*)\.?\d*$/; // xx.
+  // let r1_2 = /^[+-]?(0?|[1-9]\d*)\.?\d+$/; // .xx
+  // let r1 = new RegExp(r1_1.source + '|' + r1_2.source);
+
+  // 十进制 普通&科学计数法
+  // let r2_1 = /^[+-]?(0|[1-9]\d*)\.?\d*([eE][+-]?\d+)?$/;
+  // let r2_2 = /^[+-]?(0?|[1-9]\d*)\.?\d+([eE][+-]?\d+)?$/;
+  // let r2 = new RegExp(r2_1.source + '|' + r2_2.source);
+  // let r2 = /^[+-]?( ((0|[1-9]\d*)\.?\d*) | ((0?|[1-9]\d*)\.?\d+) ) ([eE][+-]?\d+)?$/;
+  let r2 = /^[+-]?(((0|[1-9]\d*)\.?\d*)|((0?|[1-9]\d*)\.?\d+))([eE][+-]?\d+)?$/;
+
+  // 二进制
+  let r3 = /^0[bB][01]+$/;
+  // 八进制
+  let r4 = /^0[oO][0-7]+$/;
+  // 十六进制
+  let r5 = /^0[xX][0-9a-fA-F]+$/;
+
+  let regStr = Array.of(r2, r3, r4, r5).map(r => r.source).reduce((pre, curr, i) => {
+    return pre + '|' + curr
+  });
+
+  let reg = new RegExp(regStr);
+
+  console.log(reg.test('.1'));
+  console.log(reg.test('1.'));
+  console.log(reg.test('1.22'));
+  console.log(reg.test('0xfff'));
+  console.log(reg.test('0B1001'));
+  console.log(reg.test('0b101101000'));
+  console.log(reg.test('0O1721'));
+  console.log(reg.test('1.22e10'));
+  console.log(reg.test('1.22e-10'));
+  console.log(reg.test('1.22e+10'));
+
+
+  console.log('\n');
+  console.log(reg.test('.'));
+  console.log(reg.test('e10'));
+</script>
+
+</html>

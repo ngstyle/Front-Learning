@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Othello</title>
+        <meta name="author" content="nohc">
+        <style>
+            .cell {
+                vertical-align: middle;
+                width: 50px; 
+                height: 50px; 
+                background-color: darkgreen; 
+                display: inline-block; 
+                border: solid 1px white
+            }
+
+            .cell.black::before {
+                content: "";
+                display: block;
+                width: 40px; 
+                height: 40px; 
+                border-radius: 20px; 
+                background-color: black; 
+                margin: 5px
+            }
+
+            .cell.white::before {
+                content: "";
+                display: block;
+                width: 40px; 
+                height: 40px; 
+                border-radius: 20px; 
+                background-color: white; 
+                margin: 5px
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container"></div>
+        <script>
+            let board = [
+                0,0,0,0,0,0,0,0,    
+                0,0,0,0,0,0,0,0,    
+                0,0,0,0,0,0,0,0,    
+                0,0,0,2,1,0,0,0,    
+                1,2,2,0,2,0,0,0,    
+                0,0,0,0,0,0,0,0,    
+                0,0,0,0,0,0,0,0,    
+                0,0,0,0,0,0,0,0,    
+            ];
+
+            let container = document.getElementById("container");
+            // 黑棋先走
+            let color = 1;
+            render();
+
+            function render() {
+                container.innerHTML = "";
+                
+                for (let i = 0; i < 64; i++) {
+                    if (i > 0 && i % 8 === 0) {
+                        container.appendChild(document.createElement("br"));
+                    }
+
+                    let x = i % 8, y = (i - i % 8) / 8 ;
+                    let cell = document.createElement("div");
+                    cell.className = `cell ${board[i]===1 ? "black" : ""}${board[i]===2 ? "white" : ""}`;
+
+
+                    cell.onclick = () => {
+                        console.log(x + "," + y);
+                        let ox = x, oy = y;
+                        let hasOpposite = false;
+                        let canMove = false;
+                        if (board[i] === 0) {
+
+                            while (--x >= 0) {
+                                let left = board[--i];
+                                if (left === 3 - color) {
+                                    hasOpposite = true;
+                                }
+
+                                if (left === color) {
+                                    if (hasOpposite) {
+                                        canMove = true;
+                                    }
+                                    break;
+                                }
+
+                                if (left === 0) {
+                                    break;
+                                }
+                            }
+
+                            if (canMove) {
+                                while (x++ != ox) {
+                                    board[++i] = color;
+                                }
+                                render();
+                                color = 3 - color;
+                            } else {
+                                x = ox;
+                            }
+                        }
+
+
+                    };
+                    
+                    container.appendChild(cell);
+                }
+            }
+
+        </script>
+    </body>
+</html>

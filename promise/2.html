@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise</title>
+  <script src="custom-promise.js"></script>
+</head>
+
+<body>
+
+  <item>
+    Hahah
+  </item>
+
+  <script>
+
+    // let p1 = new Promise(resolve => {
+    //   reject();
+    // });
+
+    // // let p2 = p1.then(null, val => "nohc");
+    // let p2 = p1.then(null, val => new Promise((resolve, reject) => {
+    //   reject('error');
+    // }));
+
+    // console.log(p2);
+    // p2.then(v => console.log(v), e => console.log(e));
+
+    /*
+    const p = new Promise((resolve, reject) => {
+      console.log('inner 同步');
+      // setTimeout(() => {
+      // resolve("后盾人");
+      // reject("拒绝");
+      // }, 1000)
+
+
+      resolve(new Promise((resolve, reject) => {
+        reject('hi')
+      }));
+    })
+      .then()
+      .then((value) => {
+        console.log('success: ' + value);
+      }, (reason) => {
+        console.log('failed: ' + reason);
+      });
+
+    console.log('同步');
+    */
+
+
+    const p = new Promise((resolve, reject) => { resolve('success') });
+    Promise.resolve(p).then(value => {
+      console.log('resolve:' + value);
+    }, reason => {
+      console.log('reject: ' + reason);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Othello</title>
+        <meta name="author" content="nohc">
+        <script src="./othello.js"></script>
+    </head>
+
+    <body>
+        <div id="container"></div>
+        <script>
+            
+            class OthelloView {
+                constructor(game, container) {
+                    this.game = game;
+                    this.container = container;
+                    this.show(game.pattern);
+                }
+
+                show(pattern) {
+                    this.container.innerHTML = "";
+                    for (let y = 0; y < 8; y++) {
+                        
+                        for (let x = 0; x < 8; x++) {
+                            let cell = document.createElement("div");
+                            cell.style = "vertical-align: middle;width: 50px; height: 50px; background-color: darkgreen; display: inline-block; border: solid 1px white";
+                            this.container.appendChild(cell);
+
+                            if (pattern.board[y][x] === 1) {
+                                let disc = document.createElement("div");
+                                disc.style = "width: 40px; height: 40px; border-radius: 20px; background-color: black; margin: 5px";
+                                cell.appendChild(disc);
+                            } else if (pattern.board[y][x] === 2) {
+                                let disc = document.createElement("div");
+                                disc.style = "width: 40px; height: 40px; border-radius: 20px; background-color: white; margin: 5px";
+                                cell.appendChild(disc);
+                            } else {
+                                cell.onclick = () => {
+                                    console.log("click ---- " + x + "," + y);
+                                    this.game.move(x, y);
+                                    this.show(this.game.pattern);
+                                };
+                            }
+                        }
+                        
+                        container.appendChild(document.createElement("br"));
+                    }
+                }
+            }
+
+            let view = new OthelloView(new OthelloGame(), document.getElementById("container"));
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #34495e;
+      flex-direction: column;
+    }
+
+
+    main {
+      display: flex;
+      border: 1px solid silver;
+      /* perspective: 200px; */
+      transform: perspective(200px) rotateX(45deg);
+    }
+
+    main div {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      background: #f1c40f;
+      /* transform: perspective(300px) rotateY(45deg); */
+    }
+
+    article div {
+      color: white;
+      position: relative;
+      padding: 4px 0;
+    }
+
+    article div a {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    article div::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: white;
+      transform: scale(0);
+      transition: .3s;
+    }
+
+    article div:hover::after {
+      transform: scale(1);
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <main>
+    <div></div>
+    <div></div>
+  </main>
+
+
+  <article>
+    <div>
+      <a>结构化程序设计</a>
+    </div>
+  </article>
+
+</body>
+
+</html>

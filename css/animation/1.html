@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animation</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    main {
+      width: 100px;
+      height: 100px;
+      background: white;
+      animation: nohc 2s;
+    }
+
+    @keyframes nohc {
+      0% {
+        background: white;
+      }
+
+      35% {
+        transform: scale(2);
+      }
+
+      100% {
+        background: red;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <main></main>
+
+</body>
+
+</html>

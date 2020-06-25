@@ -1,0 +1,200 @@
+<head>
+	<style>
+		h5::after {
+			content: "neifjdlsfldskfkjldsfk.dsjfjsklfjkl";
+			counter-increment:section;
+		}
+	</style>
+</head>
+<div id="app">
+	<h2 value="&quot;a&quot;=&#39;b&#39;"> {{ skill }} is fatanstic</h2>
+	<ul>
+		<li v-for='product of products'>
+			<input type="number" v-model.number="product.quantity">, {{ product.name }}
+			<sapn v-if="product.quantity === 0">
+				- out of stock
+			</sapn>
+			<button @click="product.quantity += 1">
+				Add
+			</button>
+		</li>
+	</ul>
+	<h2>Total Inventory: {{ totalQuantity }}</h2>
+
+	<p style="padding: 24px 10%">
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+		<img src="https://miro.medium.com/max/11344/1*32h8ts3A-7XNr6A4Js87ng.jpeg" width="400px" style="float: left; margin: 12px 12px 0 0;">
+		Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+		Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui animi vel autem quos optio eum libero dignissimos eaque labore voluptas. Dignissimos, quod eaque. Repellat saepe natus dicta recusandae ab. Omnis!
+	</p>
+
+	<h5>我是给要编号的h5</h5>
+	<h5>我是给要编号的h5</h5>
+	<h5>我是给要编号的h5</h5>
+
+
+</div>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+<script src="vue.min.js"></script>
+
+<script type="text/javascript">
+	
+	const app = new Vue({
+		el: '#app',
+		data: {
+			skill: 'Vue',
+			products: [
+				// 'React',
+				// 'Angular',
+				// 'Vue'
+			]
+		},
+		computed: {
+			totalQuantity() {
+				return this.products.reduce((sum,product) => {
+					return sum + product.quantity
+				}, 0)
+			}
+		},
+		created () {
+			fetch('https://api.myjson.com/bins/74l63')
+				.then(response => response.json())
+				.then(json => {
+					this.products = json.products
+				})
+		}
+	});
+
+
+	let set = new Set();
+	let objects = [
+		eval,
+		isFinite,
+		isNaN,
+		parseFloat,
+		parseInt,
+		decodeURI,
+		decodeURIComponent,
+		encodeURI,
+		encodeURIComponent,
+		Array,
+		Date,
+		RegExp,
+		Promise,
+		Proxy,
+		Map,
+		WeakMap,
+		Set,
+		WeakSet,
+		Function,
+		Boolean,
+		String,
+		Number,
+		Symbol,
+		Object,
+		Error,
+		EvalError,
+		RangeError,
+		ReferenceError,
+		SyntaxError,
+		TypeError,
+		URIError,
+		ArrayBuffer,
+		SharedArrayBuffer,
+		DataView,
+		Float32Array,
+		Float64Array,
+		Int8Array,
+		Int16Array,
+		Int32Array,
+		Uint8Array,
+		Uint16Array,
+		Uint32Array,
+		Uint8ClampedArray,
+		Atomics,
+		JSON,
+		Math,
+		Reflect];
+	objects.forEach(o => set.add(o));
+	console.log("origin length: " + objects.length)
+
+	for(let i = 0; i < objects.length; i++) {
+		let o = objects[i]
+		for(let p of Object.getOwnPropertyNames(o)) {
+			let d = Object.getOwnPropertyDescriptor(o, p)
+			if( (d.value !== null && typeof d.value === "object") || (typeof d.value === "function"))
+				if(!set.has(d.value))
+					set.add(d.value), objects.push(d.value);
+			if( d.get )
+				if(!set.has(d.get))
+					set.add(d.get), objects.push(d.get);
+			if( d.set )
+				if(!set.has(d.set))
+					set.add(d.set), objects.push(d.set);
+		}
+	}
+
+	console.log("total length: " + objects.length)
+
+
+	let numbers = [3,1,20,5,4,9,7,10,6];
+	for (let i = 0; i < numbers.length; i++) {
+		for (let j = i + 1; j < numbers.length; j++) {
+			if (numbers[i] < numbers[j]) { 
+				numbers[i] = numbers[i] ^ numbers[j];
+				numbers[j] = numbers[i] ^ numbers[j];
+				numbers[i] = numbers[i] ^ numbers[j];
+			}
+		}
+	}
+
+	console.log(numbers);
+
+	function Point(x, y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	Point.prototype.r = function() {
+		return Math.sqrt(this.x * this.x + this.y * this.y);
+	}
+	let p = new Point(1,1);
+	console.log(p.r());
+
+
+	function Foo() {
+		getName = function () { console.log (1); };
+		return this;
+	}
+	Foo.getName = function () { console.log (2);};
+	Foo.prototype.getName = function () { console.log (3);};
+	var getName = function () { console.log (4);};
+	function getName() { console.log (5);}
+
+	Foo.getName();
+	//2。Foo中的getName()
+
+	getName();
+	//4。跟Foo.getName()中的getName()同名，但这个是全局变量，而Foo.getName()是Foo里的属性。
+
+	Foo().getName();
+	//1。先执行Foo()，返回this，但此时没有实例对象，所以指向window，因此this.getName()==window.getName()==getName()，改变了全局变量getName的值，所以输出1。
+
+	getName();
+	//1。如果Foo().getName()没有执行的话，getName()输出4，因为Foo().getName()改变了全局变量getName。
+
+	new Foo.getName();
+	//2。new关键字用来创建实例，所以跟Foo.getName()结果一样。
+
+	new Foo().getName();
+	//3。根据输出结果，执行顺序应该是(new Foo()).getName()，new Foo()创建了实例，但是这里没有赋值，所以它应该是匿名的实例？假如赋值给newFoo，那么它应该是这样的：newFoo.getName()，但是newFoo本身没有getName()这个方法，所以会往原型链上去找，找到Foo.prototype.getName，所以输出3。 
+
+</script>

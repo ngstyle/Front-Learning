@@ -1,0 +1,31 @@
+<div id="app">
+    <!-- {{ game }} -->
+    <div v-for="(row,y) in game.pattern.board">
+        <div v-for="(cell, x) in row" @click="cellClicked(x,y)" style="vertical-align: middle;width: 50px; height: 50px; background-color: darkgreen; display: inline-block; border: solid 1px white">
+            <div v-if="cell === 1" style="width: 40px; height: 40px; border-radius: 20px; background-color: black; margin: 5px"></div>
+            <div v-if="cell === 2" style="width: 40px; height: 40px; border-radius: 20px; background-color: white; margin: 5px"></div>
+        </div>
+    </div>
+</div>
+
+<script src="vue.min.js"></script>
+<script src="./othello.js"></script>
+
+<script type="text/javascript">
+	
+	const app = new Vue({
+		el: '#app',
+		data: {
+            game: new OthelloGame(),
+        },
+        methods: {
+            cellClicked(x,y) {
+                console.log(x,y);
+                this.game.move(x, y);
+                this.$set(this.game, this.game.pattern.board, this.game.pattern.board)
+                // this.show(this.game.pattern);
+            },
+        },
+	});
+
+</script>

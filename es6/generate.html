@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+</head>
+
+<body>
+
+</body>
+
+<script>
+  function* loop(arr) {
+    for (const val of arr) {
+      let v = yield val;
+      console.log(v);
+    }
+  }
+
+  const arr = [1, 2, 3, 4];
+  const arrGen = loop(arr);
+
+  arrGen.next();
+  arrGen.next('222');
+  arrGen.next('333');
+  arrGen.next();
+</script>
+
+</html>

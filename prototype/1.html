@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Prototype</title>
+</head>
+
+<body>
+
+  <script>
+
+    function User() {
+      this.show = function () {
+        console.log('User function show method');
+      }
+    };
+    User.prototype.show = function () {
+      console.log('User prototype show method');
+    }
+
+    Object.prototype.show = function () {
+      console.log('object show method');
+    };
+
+    console.dir(User);                // function
+    console.dir(User.__proto__);      // function     函数调用 apply/call/bind 方法
+    console.dir(User.prototype);      // object       new 对象
+
+
+    console.log(User.prototype.__proto__ === Object.prototype);   // true
+    console.dir(User.__proto__.__proto__ === User.prototype.__proto__); // true
+
+    // null
+    console.log(Object.prototype.__proto__);
+
+
+    let user = new User();
+    let Func = User;
+
+    user.show();  // User => User.prototype => Object.prototype
+    Func.show();  // User.__proto__ => Object.prototype
+
+    // 通过构造函数创建对象的时候，将对象的原型(__proto__)设置成构造函数的prototype
+    // 即 [].__proto__ === Array.prototype
+    // 即 "".__proto__ === String.prototype
+    // 即 true.__proto__ === Boolean.prototype
+    // 即 {}.__proto__ === Object.prototype
+    // 即 0..__proto__ === Number.prototype
+    // 即 /\d+/.__proto__ === RegExp.prototype
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+
+        <script>
+            const Tom = {
+                name: 'Tome',
+                age: 25,
+                family: {
+                    father: 'father',
+                    mother: 'mother',
+                    bro: 'bro'
+                }
+            };
+
+            // let name = '';
+            ({ name,age } = Tom);
+
+            console.log(name);
+            console.log(age);
+
+            let father = 'ahh';
+            let { father:f, mother, bro } = Tom.family;
+            console.log(father);
+            console.log(f);
+            console.log(mother);
+            console.log(bro);
+            
+        </script>
+    </body>
+</html>

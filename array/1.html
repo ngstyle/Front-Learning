@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宏任务、微任务</title>
+</head>
+
+<body>
+  <div id="progress"></div>
+  <script>
+
+    // var time1 = new Date().getTime();
+    // console.log(1, time1);
+    // setTimeout(function () {
+    //   var time4 = new Date().getTime();
+    //   console.log(4, time4);
+    //   for (var a = 0; a < 10000000000; a++) {
+    //     a = a + 1;
+    //   }
+    //   var time2 = new Date().getTime();
+    //   console.log(2, time2);
+    // }, 2000);
+
+    // setTimeout(function () {
+    //   var time3 = new Date().getTime();
+    //   console.log(3, time3);
+    // }, 1000);
+
+    // setTimeout(function () {
+    //   var time5 = new Date().getTime();
+    //   console.log(5, time5);
+    // }, 3000);
+
+    // setTimeout(function () {
+    //   var time6 = new Date().getTime();
+    //   console.log(6, time6);
+    // }, 14000);
+
+
+    /*setTimeout(() => {
+      console.log('setTimeout....1');
+    }, 0);
+
+    setTimeout(() => {
+      console.log('setTimeout....0');
+    }, 0);
+
+
+
+
+    console.log('macro task1');
+    console.log('macro task2');
+    console.log('macro task3');
+    new Promise(resolve => resolve(10)).then((x) => console.log('xxx: ' + x));
+    console.log('macro task0');
+    for (var a = 0; a < 1000000000; a++) {
+      a = a + 1;
+    }
+    console.log('macro task4');*/
+
+
+
+
+    const progress = document.querySelector('div');
+
+    let i = 0;
+
+    function count() {
+
+      // do a piece of the heavy job (*)
+      do {
+        i++;
+        progress.innerHTML = i;
+      } while (i % 1e3 != 0);
+
+      if (i < 1e6) {
+        setTimeout(count);
+        // queueMicrotask(count);
+      }
+
+    }
+
+    count();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<html>
+
+<body>
+  <main>
+    在线教育是一种高效的学习方式，教育是一生的事业
+  </main>
+</body>
+
+<script>
+  let phone = `
+        (010)99999999,
+        (020)88888888
+    `;
+
+  console.dir(phone.match(/\((\d{3,4})\)(\d{7,8})/));
+
+
+  phone = phone.replace(/\((\d{3,4})\)(\d{7,8})/g, "$1-$2" + "xx");
+
+  console.log(phone);
+
+
+  let ch = '#=nohc*=#';
+
+  console.log(ch.replace(/nohc/, '$&')); // nohc
+  console.log(ch.replace(/nohc/, '$`')); // $` 左边的字符
+  console.log(ch.replace(/nohc/, "$'")); // $' 右边的字符
+
+
+  let main = document.querySelector('body main');
+  main.innerHTML = main.innerHTML.replace(
+    /教育/g, `
+    <a href="https://www.hdcms.com">$&</a>
+  `);
+
+
+  // 元子组别名 (?<xxx>\w+\.)
+  // ?<xxx>
+
+  // $<xxx> 取组内容
+</script>
+
+</html>

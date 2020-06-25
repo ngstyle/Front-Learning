@@ -1,0 +1,94 @@
+<script>
+  for (let i = 0; i < 128; i++) {
+
+    document.write(`<span > ${ String.fromCharCode(i) } </span>`)
+
+    // \u5389 \u
+    // "厉害".codePointAt(0).toString(16)
+    // String.fromCodePoint();
+    // charCodeAt
+  }
+
+  function foo() {
+    let undefined = 3;
+    console.log(undefined);
+
+  }
+
+  let static = 2;
+
+  let 我就$df = 22;
+
+  class Bar {
+    static co() {
+      console.log('static method');
+    }
+  }
+
+  let a = 0.1;
+  let memory = new Float64Array(0.1);
+  memory[0] = a;
+
+  let intArr = new Uint8Array(memory.buffer);
+
+
+  // 作业1
+  // 正则表示 所有数字
+
+  // 作业2
+  function UTF_8encoding(str) {
+
+  }
+
+  // 作业3
+  // 正则匹配字符串
+
+
+  function toUTF8Array(str) {
+    var utf8 = [];
+    for (var i = 0; i < str.length; i++) {
+      var charcode = str.charCodeAt(i);
+      if (charcode < 0x80) {
+        // 0x00-0x7F 
+        utf8.push(charcode)
+      } else if (charcode < 0x800) {
+        utf8.push(
+          0xc0 | (charcode >> 6),
+          0x80 | (charcode & 0x3f)
+        );
+      } else if (charcode < 0xd800 || charcode >= 0xe000) {
+        utf8.push(
+          0xe0 | (charcode >> 12),
+          0x80 | ((charcode >> 6) & 0x3f),
+          0x80 | (charcode & 0x3f)
+        );
+      } else {
+        i++;
+        charcode = ((charcode & 0x3ff) << 10) | (str.charCodeAt(i) & 0x3ff)
+        utf8.push(
+          0xf0 | (charcode >> 18),
+          0x80 | ((charcode >> 12) & 0x3f),
+          0x80 | ((charcode >> 6) & 0x3f),
+          0x80 | (charcode & 0x3f)
+        );
+      }
+    }
+    return utf8;
+  }
+
+  function toUTF8Str(str) {
+    return toUTF8Array(str).map(ele => `\\x${ele.toString(16)}`).join('');
+  }
+
+  function to10(n) {
+    const pre = (n.split('.')[0] - 0).toString(2);
+    const arr = n.split('.')[1].split('');
+    let i = 0;
+    let result = 0;
+    while (i < arr.length) {
+      result += arr[i] * Math.pow(2, -(i + 1));
+      i++;
+    }
+    return result;
+  }
+</script>

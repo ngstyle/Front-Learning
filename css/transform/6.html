@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>缩放菜单</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    main {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+    }
+
+    ul {
+      margin-right: 20px;
+    }
+
+    ul>strong {
+      background: #2ecc71;
+      padding: 10px 30px;
+      color: white;
+      display: block;
+      cursor: pointer;
+    }
+
+    ul>strong+div {
+      transform: scale(0);
+      transition: .3s;
+      transform-origin: center top;
+    }
+
+    ul>strong:hover+div {
+      transform: scale(1);
+    }
+
+    ul li {
+      list-style: none;
+      background: #ecf0f1;
+      padding: 8px;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+
+    <ul>
+      <strong>首页</strong>
+      <div>
+        <li>Home</li>
+        <li>DashBoard</li>
+      </div>
+    </ul>
+    <ul>
+      <strong>关于我们</strong>
+      <div>
+        <li>产品</li>
+        <li>合作伙伴</li>
+      </div>
+    </ul>
+
+  </main>
+
+
+</body>
+
+</html>

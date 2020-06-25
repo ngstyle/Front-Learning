@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Array Proxy</title>
+</head>
+
+<body>
+  <script>
+
+    let lessons = [
+      {
+        title: '媒体查询响应式布局',
+        category: 'css'
+      },
+      {
+        title: 'Flex 弹性布局',
+        category: 'css'
+      },
+      {
+        title: 'Mysql 多表查询随意操作',
+        category: 'mysql'
+      }
+    ];
+
+    let proxy = new Proxy(lessons, {
+      get(arr, key) {
+        const title = arr[key].title;
+
+        arr[key].title = title.length > 8 ? title.substr(0, 8) + '.'.repeat(3) : title;
+        return arr[key].title;
+      }
+    });
+
+    console.log(proxy[0]);
+  </script>
+</body>
+
+</html>

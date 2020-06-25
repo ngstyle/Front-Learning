@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise</title>
+  <script src="custom-promise.js"></script>
+</head>
+
+<body>
+
+  <item>
+    Hahah
+  </item>
+
+  <script>
+
+    // let p1 = new Promise(resolve => {
+    //   reject();
+    // });
+
+    // // let p2 = p1.then(null, val => "nohc");
+    // let p2 = p1.then(null, val => new Promise((resolve, reject) => {
+    //   reject('error');
+    // }));
+
+    // console.log(p2);
+    // p2.then(v => console.log(v), e => console.log(e));
+
+    /* const p = new Nohc((resolve, reject) => {
+       console.log('inner 同步');
+       // setTimeout(() => {
+       // resolve("后盾人");
+       // reject("拒绝");
+       // }, 1000)
+ 
+       // resolve(new Nohc((resolve, reject) => {
+       //   resolve('hah');
+       // }));
+ 
+       setTimeout(() => {
+         reject('pending reject');
+       });
+     })
+       .then()
+       .then((value) => {
+         console.log('success: ' + value);
+       }, (reason) => {
+         console.log('failed: ' + reason);
+       });
+ */
+
+    /*
+    let n = new Nohc((resolve, reject) => {
+      resolve('nohc');
+    });
+
+    n = n.then(r => {
+      console.log(r);
+      return n;
+    })
+
+    console.log('同步');
+    */
+
+    /*
+    let n1 = new Nohc((resolve, reject) => {
+      resolve('nohc');
+    });
+
+    let n2 = new Nohc((resolve, reject) => {
+      resolve('chon');
+      // reject('failed');
+    });
+
+    Nohc.all([n1, n2]).then(value => {
+      console.log(value);
+    }, reason => {
+      console.log(reason);
+    });
+    */
+
+    let n1 = new Nohc((resolve, reject) => {
+      setTimeout(() => {
+        resolve('nohc');
+      }, 1000);
+    });
+
+    let n2 = new Nohc((resolve, reject) => {
+      setTimeout(() => {
+        resolve('chon');
+        // reject('failed');
+      }, 200);
+    });
+
+    Nohc.race([n1, n2]).then(value => {
+      console.log(value);
+    }, reason => {
+      console.log(reason);
+    });
+
+
+  </script>
+</body>
+
+</html>

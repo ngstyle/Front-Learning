@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大小写转换</title>
+
+  <style>
+    h1 {
+      /* 文字大写不改变高度 */
+      /* font-variant: small-caps; */
+      text-transform: capitalize;
+    }
+
+    p {
+      /* text-decoration: line-through; */
+    }
+
+    div p {
+      text-decoration: underline;
+    }
+
+    div {
+      vertical-align: middle;
+    }
+
+    .cell {
+      background-color: darkgreen;
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+    }
+
+    .cell:after {
+      content: '';
+      background-color: white;
+      width: 40px;
+      height: 40px;
+      margin: 5px;
+      display: inline-block;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>
+    xxhhss
+  </h1>
+
+  <p>This is a prangrah Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officiis, consectetur? Ut, inventore
+    vel. Repudiandae rem natus nemo praesentium assumenda ut accusamus, eligendi excepturi amet maxime dolor, vero in
+    pariatur quas?</p>
+
+  <div>
+    <p>
+      Perspiciatis fugiat voluptate qui dignissimos. Atque occaecati est doloremque sit sapiente quia nulla. Ad
+      quasi
+      corporis eaque quaerat repudiandae similique molestiae praesentium sit. Voluptatibus sit id officia.
+      <img style="vertical-align: middle;" src="https://s3.amazonaws.com/uifaces/faces/twitter/samscouto/128.jpg"
+        alt="">
+    </p>
+  </div>
+
+  <div class="cell">
+
+  </div>
+
+  <!-- style="letter-spacing: 10px;" -->
+  <!-- style="word-spacing: 1em;" -->
+  <!-- style="writing-mode: vertical-rl;" -->
+  <p style="text-indent: 2em;">
+    《唐诗三百首》是一部流传很广的唐诗选集。唐朝（618年~907年）二百八十九年间，是中国诗歌发展的黄金时代，云蒸霞蔚，名家辈出，唐诗数量多达五万余首。
+    孙琴安《唐诗选本六百种提要·自序》指出，“唐诗选本经大量散佚，至今尚存三百余种。当中最流行而家传户晓的，要算《唐诗三百首》。”《唐诗三百首》选诗范围相当广泛，收录了77家诗，共311首，在数量上以杜甫诗最多，有38首、王维诗29首、李白诗27首、李商隐诗22首。
+  </p>
+
+  <p>something else</p>
+
+</body>
+
+</html>

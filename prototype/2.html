@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>设置原型1</title>
+</head>
+
+<body>
+
+  <script>
+    let parent = {
+      name: 'parent',
+      show() {
+        console.log('parent method: ' + this.name);
+      }
+    };
+
+    let child = {
+      name: 'child'
+    };
+
+    Object.setPrototypeOf(child, parent);
+    child.show();
+
+    console.log(child.__proto__ === parent);
+    console.log(Object.getPrototypeOf(child));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>__proto__ 是原型的 getter setter</title>
+</head>
+
+<body>
+  <script>
+
+    let obj = {
+      name: 'nohc'
+    };
+    let hedge = {
+      show() {
+        console.log(this.name);
+      }
+    }
+    // Object.setPrototypeOf(hedge, obj);
+    // 是get set 方法，原型链上的方法
+    hedge.__proto__ = obj;
+
+    // 此行无效
+    hedge.__proto__ = 99;
+    hedge.show();
+    console.dir(hedge);
+
+
+    // 创建一个无原型的对象
+    let noObj = Object.create(null);
+
+    noObj.__proto__ = 99;
+    console.dir(noObj);
+
+  </script>
+</body>
+
+</html>

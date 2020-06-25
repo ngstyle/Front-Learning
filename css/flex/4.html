@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flex grow</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background: #efefef;
+      /* height: 64px; */
+      /* flex-shrink: 0; */
+      flex: 0 0 64px;
+      /* 优先级 max/min-* > flex-basis > width/height */
+    }
+
+    main {
+      flex-grow: 1;
+      background: blueviolet;
+      overflow: scroll;
+      /* color: white; */
+      font: 20px;
+    }
+
+    footer {
+      flex-shrink: 0;
+      height: 56px;
+      background: yellowgreen;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+  </header>
+
+  <main>
+    long content<br><br><br><br><br>
+    ..... <br><br><br><br><br><br>
+    ... <br><br><br><br><br>
+
+    content <br><br><br><br><br>
+
+    something else <br><br><br><br><br>
+
+    ..... <br><br><br><br><br><br>
+    ... <br><br><br><br><br>
+
+    ..... <br><br><br><br><br><br>
+    ... <br><br><br><br><br>
+
+    end<br><br><br><br><br><br>
+    ... <br><br><br><br><br>
+
+
+  </main>
+
+  <footer>
+
+  </footer>
+</body>
+
+</html>

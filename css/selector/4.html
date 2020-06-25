@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nth:child</title>
+
+  <style>
+    /* main ul>li:nth-last-child(-n+2) {
+      color: red;
+    } */
+
+    /* main ul>li:nth-child(-n+3):not(:first-child) {
+      color: red;
+    } */
+
+    /* main ul>li:nth-child(n+4):not(:last-child) {
+      color: red;
+    }
+
+    article span:nth-last-of-type(1) {
+      color: red;
+    } */
+
+    /* article :first-child {
+      color: rebeccapurple;
+    } */
+
+    article>span {
+      font: bold italic 18px/1.5em monospace;
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+
+  <article>
+    <span>houdunren.com</span>
+    <aside>
+      <span>houdunwang.com</span>
+      <span>hdcms.com</span>
+    </aside>
+    <span>hdphp.com</span>
+    <span>hdxxx.com</span>
+  </article>
+
+  <main>
+    <ul>
+      <li>nohc☺️</li>
+      <li>chon</li>
+      <li>den</li>
+      <li>den</li>
+      <li>den</li>
+      <li title="name">Octend</li>
+      <li>😀
+        露齿而笑的脸
+        Unicode: \U1F600，UTF-8: F0 9F 98 80</li>
+    </ul>
+  </main>
+
+
+
+  <script>
+    console.log(1);
+    Promise.resolve().then(res => {
+      console.log(2);
+    });
+    setTimeout(() => {
+      console.log(4)
+    });
+
+  </script>
+
+  <script>
+    Promise.resolve().then(res => {
+      console.log(5);
+    });
+    console.log(3);
+
+    // 1 2 3 5 4, 先输出了2
+  </script>
+</body>
+
+</html>

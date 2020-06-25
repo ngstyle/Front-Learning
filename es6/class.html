@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+</body>
+
+<script>
+  function Animal(name) {
+    this.name = name;
+    this.eat = function () {
+      console.log(name + ', eat something...');
+    }
+  }
+
+  Animal.prototype.fn = function () {
+    console.log('test function');
+  };
+
+  function Dog(name, age) {
+    this.age = age;
+    Animal.call(this, name);
+
+    // this.eat = function() {
+    //   console.log(`dog ${this.name} is ${age} years old, eat bone`);
+    // }
+  }
+
+  //   Dog.prototype = new Animal();
+  Dog.prototype = Object.create(Animal.prototype);
+  Dog.prototype.constructor = Dog;
+
+  //   let arr = [{
+  //     name: 'nohc',
+  //     age: 29,
+  //     gender: 1
+  //   }, {
+  //     name: 'hy',
+  //     age: 29,
+  //     gender: 0
+  //   }, ];
+
+  //   console.table(arr);
+
+
+  let arr = [1, 2, 3, 4];
+
+  Array.prototype.xvalues = function () {
+    let i = 0;
+    const self = this;
+    return {
+      next() {
+        console.log("index = " + i);
+        const done = i >= self.length;
+        const value = done ? 'undefined' : self[i++];
+        return {
+          done,
+          value
+        }
+      }
+    }
+  }
+
+  //   arr.xvalues().next();
+</script>
+
+</html>

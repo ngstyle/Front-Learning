@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>constructor</title>
+</head>
+
+<body>
+
+  <script>
+    function User(name) {
+      this.name = name;
+    }
+
+    // User.prototype = {
+    //   show() {
+    //     console.log('prototype show method:' + this.name);
+    //   }
+    // };
+
+    // let zs = new User('张三');
+    // zs.show();
+
+    User.prototype.show = function () {
+      console.log('prototype show method:' + this.name);
+    };
+
+    console.log(User);
+    console.log(User.prototype.__proto__ === Object.prototype);
+    console.log(User.prototype.constructor === User);
+
+    let zs = new User('张三');
+    // 通过对象找原型，再找构造函数
+    let con = Object.getPrototypeOf(zs).constructor;
+
+    let lisi = new con('李四');
+    lisi.show();
+
+  </script>
+</body>
+
+</html>

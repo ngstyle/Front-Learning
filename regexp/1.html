@@ -1,0 +1,32 @@
+<html>
+
+<body>
+
+  <div class="content">
+    noh10^#4&5#chonWT$@!#31.com
+  </div>
+
+</body>
+<script>
+  setTimeout(() => {
+    let div = document.querySelector('div');
+    console.log(div.innerHTML);
+    console.log(div.textContent);
+
+    let con = prompt('请输入要要查找的内容，支持正则');
+    console.log(con);
+
+    // 正则表达式中，需要反斜杠转义的，一共有12个字符：^、.、[、$、(、)、|、*、+、?、{和\。
+    // 需要特别注意的是，
+    // 如果使用RegExp方法生成正则对象，转义需要使用两个斜杠，因为字符串内部会先转义一次
+    // \\d
+    let reg = new RegExp(con, 'g');
+
+    div.innerHTML = div.innerHTML.replace(reg, search => {
+      console.log(search);
+      return `<span style="color: red">${search}</span>`;
+    });
+  }, 200);
+</script>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>对象深层次拷贝</title>
+</head>
+
+<body>
+
+
+  <script>
+
+    let obj = {
+      name: 'nohc',
+      user: {
+        name: 'chon'
+      },
+      arr: [1, 2, 3]
+    }
+
+    function deepCopy(obj) {
+
+      let res = obj instanceof Array ? [] : {};
+      // for (const key in obj) {
+      //   res[key] = typeof obj[key] === 'object' ? deepCopy(obj[key]) : obj[key];
+      // }
+
+      for (const [k, v] of Object.entries(obj)) {
+        res[k] = typeof v === 'object' ? deepCopy(v) : v;
+      }
+
+      return res;
+    }
+
+
+    let deep = deepCopy(obj);
+    deep.user.name = 'change obj';
+    console.log(deep.arr.shift());
+    console.log(deep.arr.pop());
+
+    // deep.arr.unshift(100);
+    // deep.arr.push(10);
+
+    console.log(JSON.stringify(obj, null, 2));
+    console.log(JSON.stringify(deep, null, 2));
+  </script>
+
+</body>
+
+</html>

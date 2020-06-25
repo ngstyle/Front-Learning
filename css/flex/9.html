@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Margin 妙用</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    nav {
+      width: 80%;
+      margin: 0 auto;
+      background: #dedede;
+      height: 56px;
+      display: flex;
+      box-shadow: 0 0 0 rgba(0, 0, 0, .3);
+      /* align-items: center; */
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul li {
+      list-style: none;
+      margin: 0 20px;
+    }
+
+    ul:nth-child(1) {
+      margin-right: auto;
+    }
+
+    nav ul:nth-child(2)>li {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: blueviolet;
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      line-height: 40px;
+    }
+
+    article {
+      display: flex;
+      background: yellowgreen;
+      height: 100px;
+    }
+
+    article section {
+      flex: 1;
+      background: blueviolet;
+      padding: 10px;
+      background-clip: content-box;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <nav>
+
+    <ul>
+      <li>首页</li>
+      <li>订单</li>
+      <li>直播</li>
+      <li>关于我们</li>
+    </ul>
+
+    <ul>
+      <li>y</li>
+    </ul>
+  </nav>
+
+  <article>
+    <section>1</section>
+    <section>2</section>
+    <section>3</section>
+  </article>
+</body>
+
+</html>

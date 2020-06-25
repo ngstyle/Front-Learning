@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+  <script>
+    let set = new Set([1, 2, 5, 6]);
+    set.delete(2);
+
+    // set.forEach()
+
+    let colors = ['red', 'green', 'white'];
+
+    colors.forEach((value, index, arr) => {
+      console.log(value, index, arr);
+    });
+
+
+    let lili = {
+      name: 'lili',
+      age: 22
+    }
+
+    let weakPeople = new WeakSet([lili]);
+    lili = null;
+    console.log(weakPeople);
+    console.log(weakPeople.has(lili));
+
+    setTimeout(() => {
+      console.log(weakPeople);
+    }, 200);
+  </script>
+</body>
+
+</html>

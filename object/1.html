@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>数组对象解构</title>
+</head>
+
+<body>
+
+  <script>
+
+    // 数组解构
+    let arr = [1, 2, 3, 4];
+    let [, , a, b] = arr;
+    console.log(a, b);
+    [a, b] = [b, a];
+    console.log(`After change: ${a}, ${b}`);
+
+    // 数组扩展
+    let numbers = [1, 2, 3];
+    let newNums = [...numbers, 4, 5];
+    console.log(newNums);
+
+    // 对象扩展
+    let config = {
+      autoSave: false,
+      quota: 'double'
+    };
+
+    config = { ...config, quota: 'single' };
+    console.log(config);
+
+    // 对象解构
+    let user = {
+      name: 'nohc',
+      lesson: {
+        title: 'javascript'
+      }
+    };
+
+    let { name, lesson, lesson: { title } } = user;
+    console.log(name, lesson, title);
+
+
+    console.log("toString" in user);
+    console.log(user.hasOwnProperty('lesson'));
+  </script>
+</body>
+
+</html>

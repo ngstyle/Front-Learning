@@ -1,0 +1,12 @@
+<script>
+  let reg = /\p{sc=Han}+/gu;
+
+  //   console.log(reg.exec('张三： 2345565, 李四：24893855486'));
+
+  let str = '张三： 2345565, 李四：24893855486';
+
+  console.log(str.match(reg));
+
+  // 排除
+  console.log(str.match(/[^:：，,\d\s]+/g));
+</script>

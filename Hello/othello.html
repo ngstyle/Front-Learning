@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Othello</title>
+        <meta name="author" content="nohc">
+    </head>
+
+    <body>
+        <div id="container"></div>
+        <script>
+            let board = [
+                [0,0,0,0,0,0,0,0],    
+                [0,0,0,0,0,0,0,0],    
+                [0,0,0,0,0,0,0,0],    
+                [0,0,0,0,0,0,0,0],    
+                [0,0,0,0,0,0,0,0],    
+                [0,0,0,0,0,1,2,0],    
+                [0,0,0,0,0,0,2,2],    
+                [0,0,0,0,0,2,2,2],    
+            ];
+
+            let container = document.getElementById("container");
+            // 黑棋先走
+            let color = 1;
+            render();
+
+            function checkPass(){
+                for(let y = 0; y < 8; y++) {
+                    for(let x = 0; x < 8; x++) {
+                        if(move(x, y, true)) {
+                            console.log(x + "," + y + ", 还可以: " + color);
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+
+            function move (x, y, checkOnly = false) {
+                if(board[y][x] !== 0)
+                    return false;
+
+                let ox = x, oy = y;
+                let canMove = false;
+
+                // 8个方向移动
+                let directions = [
+                    [-1 , -1],
+                    [-1 , 0],
+                    [-1 , 1],
+                    [0 , -1],
+                    [0 , 1],
+                    [1 , -1],
+                    [1 , 0],
+                    [1 , 1],
+                ];
+
+                for (const direction of directions) {
+                    x = ox;
+                    y = oy;
+                    let hasOpposite = false;
+                    let directionCanMove = false;
+                    while(true) {
+                        x += direction[0];
+                        y += direction[1];
+
+                        if (x < 0 || x >= 8 || y < 0 || y >= 8) {
+                            break;
+                        }
+
+                        if (board[y][x] === 3 - color) {
+                            hasOpposite = true;
+                        }
+
+                        if (board[y][x] === color) {
+                            if (hasOpposite) {
+                                directionCanMove = true;
+                            }
+                            break;
+                        }
+
+                        if (board[y][x] === 0) {
+                            // console.log("空白格：" + x + "," + y);
+                            break;
+                        }
+                    }
+
+                    if (directionCanMove && !checkOnly) {
+                        while(true) {
+                            x -= direction[0];
+                            y -= direction[1];
+                            board[y][x] = color;
+                            if (x === ox && y === oy) {
+                                break;
+                            }
+                        }
+                    }
+
+                    canMove = canMove || directionCanMove;
+                }
+                
+
+                if (canMove && !checkOnly) {
+                    color = 3 - color;
+                } 
+
+                return canMove;
+            }
+
+            function render() {
+                container.innerHTML = "";
+                for (let y = 0; y < 8; y++) {
+                    
+                    for (let x = 0; x < 8; x++) {
+                        let cell = document.createElement("div");
+                        cell.style = "vertical-align: middle;width: 50px; height: 50px; background-color: darkgreen; display: inline-block; border: solid 1px white";
+                        container.appendChild(cell);
+
+                        if (board[y][x] === 1) {
+                            let disc = document.createElement("div");
+                            disc.style = "width: 40px; height: 40px; border-radius: 20px; background-color: black; margin: 5px";
+                            cell.appendChild(disc);
+                        } else if (board[y][x] === 2) {
+                            let disc = document.createElement("div");
+                            disc.style = "width: 40px; height: 40px; border-radius: 20px; background-color: white; margin: 5px";
+                            cell.appendChild(disc);
+                        } else {
+                            cell.onclick = () => {
+                                move(x, y);
+                                console.log("check ---- ")
+                                if(checkPass()) {
+                                    console.log("passed");
+                                    color = 3 - color;
+                                    if(checkPass()) {
+                                        // alert("Game Over");
+                                        let blackNum = board.filter(val => val === 1);
+                                        let whiteNum = board.filter(val => val === 2);
+
+                                        console.log(blackNum > whiteNum ? "黑棋胜利" : "白棋胜利");
+                                    }
+                                }
+                                render();
+                            };
+                        }
+                    }
+                    
+                    container.appendChild(document.createElement("br"));
+                }
+            }
+
+        </script>
+    </body>
+</html>

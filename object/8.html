@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>get set</title>
+</head>
+
+<body>
+
+  <script>
+
+    // function User(name, age) {
+    //   let data = { name, age };
+    //   Object.defineProperties(this, {
+    //     name: {
+    //       get() {
+    //         return data.name
+    //       },
+    //       set(val) {
+    //         if (val.trim() === '' || val.length > 20) {
+    //           throw Error('illegal name');
+    //         }
+    //         data.name = val;
+    //       }
+    //     },
+    //     age: {
+    //       get() {
+    //         return data.age;
+    //       },
+    //       set(val) {
+    //         data.age = age;
+    //       }
+    //     }
+    //   });
+
+    // }
+
+    // let u = new User('nohc', 29);
+    // u.name = 'chon';
+    // console.log(u.name);
+
+
+    class User {
+      DATA = Symbol('data');
+
+      constructor(name, user) {
+        this[this.DATA] = { name, user };
+      }
+
+      get name() {
+        return this[this.DATA].name;
+      }
+
+      set name(val) {
+        if (val.trim() === '' || val.length > 20) {
+          throw Error('illegal name');
+        }
+        this[this.DATA].name = val;
+      }
+
+      get age() {
+        return this[this.DATA].age;
+      }
+
+      set age(age) {
+        this[this.DATA].age = age;
+      }
+    }
+
+    let u = new User('nohc', 29);
+    u.name = 'chon';
+    console.log(u);
+    console.log(u.name);
+
+  </script>
+</body>
+
+</html>

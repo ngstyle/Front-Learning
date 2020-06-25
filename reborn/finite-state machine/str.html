@@ -1,0 +1,58 @@
+<script>
+
+  // const pattern = 'abcabx';
+  // TODO const pattern = 'abababx';
+  const str = 'Hi, I am abcabcabxasfdgf';
+
+  let state = start;
+
+  for (const c of str) {
+    state = state(c);
+  }
+
+  function start(c) {
+    if (c === 'a')
+      return findA1;
+    return start;
+  }
+
+  function findA1(c) {
+    if (c === 'b')
+      return findB1;
+    return start;
+  }
+
+  function findB1(c) {
+    if (c === 'c')
+      return findA2;
+    return start;
+  }
+
+  function findA2(c) {
+    if (c === 'a')
+      return findB2;
+    return start;
+  }
+
+  function findB2(c) {
+    if (c === 'b')
+      return findX;
+    return start;
+  }
+
+  function findX(c) {
+    if (c === 'x')
+      return end;
+    else if (c === 'c')
+      return findA2;
+    return start;
+  }
+
+  function end(c) {
+    return end;
+  }
+
+
+  console.log(state);
+  console.log(state === end);
+</script>

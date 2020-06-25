@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Function Proxy</title>
+</head>
+
+<body>
+  <script>
+    function factorial(num) {
+      return num === 1 ? 1 : num * factorial(num - 1);
+    }
+
+    console.log(factorial(5));
+
+    let proxy = new Proxy(factorial, {
+      apply(func, obj, args) {
+        console.time('run');
+
+        console.log(obj);
+        const result = func.apply(obj, args);
+        console.timeEnd('run');
+        return result;
+      }
+    });
+
+    proxy.apply(this, [5]);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid 布局</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    article {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      grid-template-rows: 60px 1fr 60px;
+      grid-template-columns: 20% 1fr;
+      grid-template-areas: 'header header''nav main''footer footer';
+    }
+
+    header,
+    nav,
+    main {
+      /* padding: 5px; */
+      background: blueviolet;
+      /* background-clip: content-box; */
+      border: 1px solid grey;
+      color: white;
+      font-size: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header {
+      grid-area: header;
+    }
+
+    nav {
+      grid-area: nav;
+    }
+
+    main {
+      grid-area: main;
+    }
+
+    footer {
+      grid-area: footer;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    footer>div {
+      /* padding: 3px; */
+      background: white;
+      /* background-clip: content-box; */
+      border: 1px solid #dedede;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <article>
+
+    <header>Header</header>
+    <nav>Nav</nav>
+    <main>Main</main>
+    <footer>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </footer>
+
+  </article>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结构选择器</title>
+
+  <style>
+    /* 
+    后代子类和孙类。。。
+    main article h2 {
+      color: red;
+    } */
+
+    /* 
+    Only 后代子类
+    main article>h2 {
+      color: red;
+    } */
+
+    /* 
+    所有兄弟元素
+    main article h1~h2 {
+      color: red;
+    } */
+
+    /* 紧跟着的兄弟元素 */
+    main article h1+h2 {
+      color: red;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <main>
+    <article>
+      <h1>main article h1</h1>
+      <h2>main article h2 001</h2>
+      <aside>
+        <h2>main article aside h2</h2>
+      </aside>
+      <h2>main article h2 002</h2>
+    </article>
+  </main>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>定位</title>
+
+  <!-- 定位 tlbr 正数时，往里偏移，负数往外边偏移 -->
+  <!-- 相对定位时，top，bottom 设置一个即可 -->
+  <!-- 绝对定位时，元素没设置宽高时，可以用tlbr设置宽高 -->
+
+  <style>
+    /* p>img {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      left: 20px;
+      top: 20px;
+    } */
+
+    p>img {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      /* left: 20px; */
+      right: 20px;
+      /* left: 20px; */
+      top: 20px;
+    }
+
+    article {
+      width: 300px;
+      height: 300px;
+      border: 1px solid green;
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    article div:nth-of-type(1) {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: red;
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>
+    <img src="images.png" alt="">
+    Suscipit mollitia omnis quia. Unde nihil reiciendis sed ad dolorum rerum. Enim totam repellendus vitae a quae.
+    Dolorem dolores modi saepe et ut. Quo aspernatur alias eos.</p>
+
+  <article>
+    <div></div>
+  </article>
+</body>
+
+</html>

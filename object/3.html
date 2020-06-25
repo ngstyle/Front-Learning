@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>对象数据展示转换</title>
+</head>
+
+<body>
+
+  <script>
+    let lessons = [
+      {
+        title: '媒体查询响应式布局',
+        category: 'css'
+      },
+      {
+        title: 'Flex 弹性布局',
+        category: 'css'
+      },
+      {
+        title: 'Mysql 多表查询随意操作',
+        category: 'mysql'
+      }
+    ];
+
+    let obj = lessons.reduce((pre, curr, i) => {
+      pre[`${curr.category}-${i + 1}`] = curr;
+      return pre;
+    }, {});
+
+    console.log(JSON.stringify(obj, null, 2));
+
+
+
+
+    // 展开，解构，Object.assign
+    function config1(options) {
+      let config = {
+        width: 200,
+        height: 300,
+        backgroundColor: 'red'
+      };
+
+      config = { ...config, ...options };
+      console.log(config);
+    }
+
+    function config2(options) {
+      let {
+        width = 200,
+        height = 300,
+        backgroundColor = 'red'
+      } = options;
+
+      console.log({ width, height, backgroundColor });
+    }
+
+    function config3(options) {
+
+      let config = {
+        width: 200,
+        height: 300,
+        backgroundColor: 'red'
+      };
+
+      Object.assign(config, options);
+      console.log(config);
+    }
+
+    config1({ width: 400 });
+    config2({ height: 500 });
+    config3({ backgroundColor: 'green' });
+
+
+  </script>
+</body>
+
+</html>

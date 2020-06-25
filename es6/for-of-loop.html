@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+
+    </body>
+
+    <script>
+        Array.prototype.first= function() {
+            return this[0];
+        };
+        const friuts = ['Apple', 'Banana', 'Watermelon', 'Mango'];
+        friuts.describle = 'fruits here';
+
+        // 1. 
+        for (let index = 0; index < friuts.length; index++) {
+            const element = friuts[index];
+            
+            if (element === 'Watermelon') {
+                break;
+            }
+            console.log(element);
+        }
+
+        // 
+        friuts.forEach((friut) => {
+            // can not use continue and break here
+            console.log(friut);
+        });
+
+        for (const index in friuts) {
+            // index
+            // 遍历对象上所有的 可枚举属性
+            console.log(index);
+        }
+
+        for (const friut of friuts) {
+            
+        }
+
+
+        let numbers = [3,1,20,5,4,9,7,10,6];
+        for (let i = 0; i < numbers.length; i++) {
+            for (let j = i + 1; j < numbers.length; j++) {
+                if (numbers[i] < numbers[j]) { 
+                    [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+                }
+            }
+        }
+        console.log(numbers);
+
+        const objects = [{
+            name: 'chon',
+            age: 21
+        },{
+            name: 'nohc',
+            age: 23
+        }];
+
+        console.log(objects);
+        const xx = objects.map(item => ({...item}));
+
+        objects[0].name = 'chon den';
+        console.log(xx);
+
+        for (const key in objects[0]) {
+            console.log(key);
+        }
+    </script>
+</html>

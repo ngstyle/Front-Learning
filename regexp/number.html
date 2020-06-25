@@ -1,0 +1,37 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+</body>
+
+<script>
+  // 十进制普通计数         
+  let r1_1 = /^[+-]?(0|[1-9]\d*)\.?\d*$/; // xx.
+  let r1_2 = /^[+-]?(0?|[1-9]\d*)\.?\d+$/; // .xx
+
+  let r1 = new RegExp(r1_1.source + '|' + r1_2.source);
+
+  // 十进制科学计数法
+  let r2_1 = /^[+-]?(0|[1-9]\d*)\.?\d*[eE][+-]?\d+$/;
+  let r2_2 = /^[+-]?(0?|[1-9]\d*)\.?\d+[eE][+-]?\d+$/;
+  let r2 = new RegExp(r2_1.source + '|' + r2_2.source);
+
+  // 二进制
+  let r3 = /^0(b|B)(0|1)+$/;
+  // 八进制
+  let r4 = /^0(o|O)[0-8]+$/;
+  // 十六进制
+  let r5 = /^0(x|X)[0-9a-fA-F]+$/;
+
+  let regStr = Array.of(r1, r2, r3, r4, r5).map(r => r.source).reduce((pre, curr, i) => {
+    return pre + '|' + curr
+  });
+
+  let reg = new RegExp(regStr);
+</script>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>不允许向对象中添加属性</title>
+</head>
+
+<body>
+
+  <script>
+
+    let user = {
+      name: 'nohc',
+      age: 29
+    };
+
+    // 1. 不允许添加属性
+    // Object.preventExtensions(user);
+
+    if (Object.isExtensible(user)) {
+      // 可以判断是否可以扩展对象属性
+      user.site = "nohc.ml";
+
+    }
+    user.extensions = "extensions";
+    console.log(user);
+
+
+    // 2. 封闭对象API 操作
+
+    console.log(JSON.stringify(Object.getOwnPropertyDescriptors(user), null, 2));
+
+    // configurable false
+    Object.seal(user);
+    console.log(JSON.stringify(Object.getOwnPropertyDescriptors(user), null, 2));
+
+    if (!Object.isSealed(user)) {
+      delete user.age;
+    }
+
+    // 3. 冻结
+    // writable false
+    Object.freeze(user);
+    console.log(JSON.stringify(Object.getOwnPropertyDescriptors(user), null, 2));
+
+    if (!Object.isFrozen(user)) {
+      user.name = 'chon';
+    }
+
+  </script>
+</body>
+
+</html>

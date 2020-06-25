@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF_8">
+  <title>spread opreator</title>
+  <style>
+    .heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: sans-serif;
+      font-size: 50px;
+      color: white;
+      text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+      background-color: #FFC601;
+      height: 300px;
+    }
+    
+    .heading span {
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.25s;
+      padding: 0 1px;
+    }
+    
+    .heading span:hover {
+      transform: translateY(-20px) rotate(5deg) scale(2);
+    }
+  </style>
+</head>
+
+<body>
+  <h2 class="heading">NOHC.ML!</h2>
+
+  <script>
+    const heading = document.querySelector('.heading');
+
+    heading.innerHTML = wrapWithSpan(heading.textContent);
+
+    function wrapWithSpan(text) {
+      return [...text].map(ch => `<span>${ch}</span>`).join('');
+    }
+
+
+
+    console.log('外面1', a); // 外面1 undefined
+    var a = 0;
+    console.log('外面2', a, a === window.a); // 外面2 0 true
+
+    {
+      console.log(window.a); // 0
+      console.log('里面1', a, a === window.a); // ƒ a() {} false
+      a = 1;
+
+      console.log('里面2', a, a === window.a); // 1 false
+
+      function a() {};
+      console.log('里面3', a, a === window.a); // 1 true
+
+      a = 21;
+      console.log('里面4', a, a === window.a); // 21 false
+    }
+    console.log('外面3', a, a === window.a); // 1 true
+  </script>
+</body>
+
+
+</html>

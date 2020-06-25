@@ -1,0 +1,15 @@
+p img {
+  float: left;
+  padding: 10px;
+  shape-outside: circle();
+}
+p .span {
+  float: left;
+  width: 200px;
+  height: 200px;
+  background: #eee;
+  padding: 10px;
+  margin: 10px 10px 10px 0;
+  clip-path: circle(50%);
+  shape-outside: circle(50%);
+}

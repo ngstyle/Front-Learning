@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>类、id 选择器</title>
+
+  <!-- id 选择器尽量认为是唯一的，JS 操作时候，作为选择器最佳实践是当做唯一 -->
+  <style>
+    .mb8 {
+      margin-bottom: 8px;
+    }
+
+    .success {
+      border: 1px solid green;
+      color: green;
+    }
+
+    .error {
+      border: solid 1px red;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="success mb8">操作成功</div>
+  <div class="success mb8">成功*2</div>
+  <div class="error">提交失败</div>
+
+</body>
+
+</html>

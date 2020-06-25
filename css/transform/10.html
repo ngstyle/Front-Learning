@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn {
+      color: white;
+      background: #e74c3c;
+      padding: 0 10px;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 48px;
+      width: 200px;
+      letter-spacing: .4em;
+      font-weight: bold;
+      text-transform: uppercase;
+      position: relative;
+      transform: skewX(25deg) rotate(-15deg);
+    }
+
+    .btn::before {
+      content: '';
+      width: 10px;
+      height: 100%;
+      background: black;
+      position: absolute;
+      left: -10px;
+      transform: skewY(-45deg) translateY(5px);
+    }
+
+    .btn::after {
+      content: '';
+      width: 100%;
+      height: 10px;
+      background: black;
+      position: absolute;
+      bottom: -10px;
+      transform: skewX(-45deg) translateX(-5px);
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <a href="" class="btn">nohchon</a>
+
+</body>
+
+</html>

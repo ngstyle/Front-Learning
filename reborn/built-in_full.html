@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Built-in Objects</title>
+  <style>
+    .selected {
+      color: lime;
+      background-color: black;
+    }
+
+    span {
+      display: inline-block;
+      padding: 3px 2px;
+    }
+  </style>
+</head>
+
+<body style="padding: 12px 5%;">
+
+  <!-- <h3>点击切换查看</h3> -->
+  <div id="tags"></div>
+  <div id="container" style="width: 100%; height: 100%;"></div>
+
+  <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.4.9/dist/g6.min.js"></script>
+
+  <script>
+
+    const valAndFunc = ['Infinity', 'NaN',
+      'eval', 'isFinite', 'isNaN', 'parseFloat', 'parseInt',
+      'decodeURI', 'decodeURIComponent', 'encodeURI', 'encodeURIComponent'];
+    const fundamentalObjs = ['Object', 'Function', 'Boolean', 'Symbol'];
+    const errorObjs = ['Error', 'EvalError', 'RangeError', 'ReferenceError', 'SyntaxError', 'TypeError', 'URIError'];
+    const numAndDates = ['Number', 'BigInt', 'Math', 'Date'];
+    const textProcessing = ['String', 'RegExp'];
+    const indexColl = ['Array', 'Int8Array', 'Uint8Array', 'Uint8ClampedArray', 'Int16Array', 'Uint16Array', 'Int32Array', 'Uint32Array', 'Float32Array', 'Float64Array', 'BigInt64Array', 'BigUint64Array'];
+    const keyedColl = ['Map', 'Set', 'WeakMap', 'WeakSet']
+    const structuredData = ['ArrayBuffer', 'SharedArrayBuffer', 'Atomics', 'DataView', 'JSON']
+    const ctrAbsObj = ['Promise'];
+    const reflectObjs = ['Reflect', 'Proxy'];
+
+    const builtInObjs = {
+      'Value & Function properties': valAndFunc,
+      'Fundamental objects': fundamentalObjs,
+      'Error objects': errorObjs,
+      'Numbers and dates': numAndDates,
+      'Text processing': textProcessing,
+      'Indexed collections': indexColl,
+      'Keyed collections': keyedColl,
+      'Structured data': structuredData,
+      'Control abstraction objects': ctrAbsObj,
+      'Reflection': reflectObjs
+    }
+
+    // console.dir(builtInObjs);
+
+    const tags = document.querySelector('#tags');
+
+    for (let key of Object.keys(builtInObjs)) {
+      const title = document.createElement('span');
+      const strong = document.createElement('strong');
+      strong.innerHTML = key + ':&nbsp;';
+      strong.style.color = '#5B8FF9';
+      strong.style.fontSize = 'large';
+      title.appendChild(strong);
+      tags.appendChild(title);
+
+      builtInObjs[key].forEach((val, index, arr) => {
+        const span = document.createElement('span');
+        span.innerHTML = val;
+        span.style.cursor = 'pointer';
+        tags.appendChild(span);
+        if (index !== arr.length - 1) {
+          const space = document.createElement('span');
+          space.innerHTML = ',&nbsp;';
+          tags.appendChild(space);
+        }
+
+        span.addEventListener('click', function () {
+          if (this.classList.contains('selected'))
+            return;
+
+          [...tags.querySelectorAll('span')].forEach(ele => {
+            ele.classList.remove('selected');
+          });
+          this.classList.add('selected');
+
+          graph.destroy();
+
+          const data = getChildren([this.innerHTML.split(',')[0]]);
+          graph = graphFunc(data);
+        });
+
+        if (val === 'Object') {
+          span.classList.add('selected');
+        }
+
+      });
+
+      tags.appendChild(document.createElement('br'));
+    }
+
+    // 获取所有对象和方法
+    function getAllBuiltIn(objects) {
+      return [...objects.reduce((set, objName) => {
+        // console.count('built in');
+        set.add({
+          path: objName,
+          data: this[objName]
+        });
+        getObjAndFunc(set, this[objName], objName);
+        return set;
+      }, new Set())];
+
+      function getObjAndFunc(set, obj, objName) {
+        if (!obj) {
+          return;
+        }
+        for (const propName of Object.getOwnPropertyNames(obj)) {
+          const descriptor = Object.getOwnPropertyDescriptor(obj, propName);
+
+          const isPropAObj = typeof descriptor.value === "object";
+          const isPropAFunc = typeof descriptor.value === "function";
+          if (isPropAObj || isPropAFunc) {
+            // console.log(`${objName}.${propName}`);
+            // console.count('对象的对象属性或方法');
+
+            const has = [...set].some(v => {
+              // return v.data === descriptor.value;
+              const result = v.data === descriptor.value;
+              // if (result) {
+              //   console.log(v.path);
+              //   console.log(`${objName}.${propName}`);
+              //   console.log('\n');
+              // }
+              return result;
+            });
+
+            if (!has) {
+              if (propName !== 'constructor') {
+                set.add({
+                  path: `${objName}.${propName}`,
+                  data: descriptor.value
+                });
+                getObjAndFunc(set, descriptor.value, `${objName}.${propName}`);
+              }
+            } else {
+              // console.log(`${objName}.${propName}`);
+            }
+
+          }
+
+          if (descriptor.get) {
+            // console.count('get');
+            const has = [...set].some(v => {
+              // return v.data === descriptor.value;
+              const result = v.data === descriptor.get;
+              // if (result) {
+              //   console.log(v.path);
+              //   console.log(`${objName}.${propName}`);
+              //   console.log('\n');
+              // }
+              return result;
+            });
+            if (!has) {
+              set.add({
+                path: `${objName}.get ${propName}`,
+                data: descriptor.get
+              });
+            }
+          }
+
+          if (descriptor.set) {
+            // console.count('set');
+            const has = [...set].some(v => {
+              // return v.data === descriptor.value;
+              const result = v.data === descriptor.set;
+              // if (result) {
+              //   console.log(v.path);
+              //   console.log(`${objName}.${propName}`);
+              //   console.log('\n');
+              // }
+              return result;
+            });
+            if (!has) {
+              set.add({
+                path: `${objName}.set ${propName}`,
+                data: descriptor.set
+              });
+            }
+          }
+        }
+
+        const proto = Object.getPrototypeOf(obj);
+        if (proto && proto !== Object.prototype && proto !== Function.prototype && proto !== Number.prototype) {
+          // console.dir(proto);
+
+          const has = [...set].some(v => {
+            let result = v.data === proto;
+            // if (result) {
+            //   console.log(v.path);
+            //   console.log(`${objName}.__proto__`);
+            //   console.log('\n');
+            // }
+            return result;
+          });
+
+          if (!has) {
+            set.add({
+              path: `${objName}.__proto__`,
+              data: obj.__proto__
+            });
+            getObjAndFunc(set, obj.__proto__, `${objName}.__proto__`);
+          }
+        }
+      }
+    }
+
+    // 构建力图 data
+    function getData(objects) {
+      let objArr = getAllBuiltIn(objects);
+      let nodes = [];
+      let edges = [];
+      for (const obj of objArr) {
+        nodes.push({
+          id: obj.path,
+          label: obj.path.split('.').pop(),
+          size: (5 - obj.path.split('.').length) * 15,
+        });
+
+        let filterArr = objArr.filter((val, index) => {
+          return val.path.replace(obj.path, '').match(/^\.[^.]+$/);
+        });
+
+        filterArr.forEach(val => {
+          edges.push({
+            source: obj.path,
+            target: val.path
+          });
+        });
+      }
+
+      console.dir(nodes);
+      return {
+        nodes,
+        edges
+      }
+    }
+
+    // 构建Tree data
+    function getChildren(objects) {
+      let objArr = getAllBuiltIn(objects);
+
+      let root = objArr.filter((val, index) => {
+        return val.path.split('.').length === 1;
+      })[0].path;
+      // console.log(root);
+
+      let data = { id: root };
+      void function fillChildren(data, objArr) {
+        // 获取子节点
+        let filterArr = objArr.filter((val, index) => {
+          return val.path.replace(data.id, '').match(/^\.[^.]+$/);
+        }).map(val => ({ id: val.path }));
+
+        data.children = filterArr;
+        // console.log(data);
+
+        filterArr.forEach(val => fillChildren(val, objArr));
+      }(data, objArr);
+
+      return data;
+    }
+
+    function graphFunc(data) {
+      const width = document.getElementById('container').scrollWidth;
+      // const height = document.getElementById('container').scrollHeight || 800;
+      let max = 0;
+      void function getMaxChildren(data) {
+        if (data.children && data.children.length > 0) {
+          max = data.children.length > max ? data.children.length : max;
+
+          data.children.forEach(v => getMaxChildren(v));
+        }
+
+        return max;
+      }(data);
+      const height = (max + 2) * 40;
+
+      const graph = new G6.TreeGraph({
+        container: 'container',
+        width,
+        height,
+        modes: {
+          default: [
+            {
+              type: 'collapse-expand',
+              onChange: function onChange(item, collapsed) {
+                const data = item.get('model').data;
+                data.collapsed = collapsed;
+                return true;
+              },
+            },
+            'drag-canvas',
+            // 'zoom-canvas',
+          ],
+        },
+        defaultNode: {
+          size: 26,
+          anchorPoints: [
+            [0, 0.5],
+            [1, 0.5],
+          ],
+          style: {
+            fill: '#C6E5FF',
+            stroke: '#5B8FF9',
+          },
+        },
+        defaultEdge: {
+          type: 'cubic-horizontal',
+          style: {
+            stroke: '#A3B1BF',
+          },
+        },
+        layout: {
+          type: 'compactBox',
+          direction: 'LR',
+          getId: function getId(d) {
+            return d.id;
+          },
+          getHeight: function getHeight() {
+            return 16;
+          },
+          getWidth: function getWidth() {
+            return 16;
+          },
+          getVGap: function getVGap() {
+            return 10;
+          },
+          getHGap: function getHGap() {
+            return 100;
+          },
+        },
+      });
+
+      graph.node(function (node) {
+        return {
+          label: node.id,
+          labelCfg: {
+            offset: 10,
+            position: node.children && node.children.length > 0 ? 'left' : 'right',
+          },
+        };
+      });
+
+      graph.data(data);
+      graph.render();
+      graph.fitView();
+
+      return graph;
+    }
+
+    let graph = graphFunc(getChildren(['Object']));
+
+
+    let all = Object.values(builtInObjs).reduce((pre, curr) => {
+      return [...pre, ...curr];
+    });
+    console.dir(getAllBuiltIn(all));
+  </script>
+</body>
+
+</html>

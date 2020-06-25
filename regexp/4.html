@@ -1,0 +1,25 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+  <input type="text" name="user">
+  <span></span>
+</body>
+<script>
+  //  字符串边界 /^$/
+
+  let span = document.querySelector('span');
+  document.querySelector("[name='user']").addEventListener('keyup', function() {
+    // console.log(this.value);
+    span.innerHTML = this.value.match(/^[a-z]{3,6}$/i) ? 'success' : 'failed';
+  });
+
+  let website = "http://www.baidu.com";
+  let webReg = /^https?:\/\/([\w-]+\.)+\w+$/;
+  console.log(website.match(webReg));
+</script>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>flex-flow</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      padding: 100px;
+    }
+
+    article {
+      width: 300px;
+      /* width: 280px; */
+      border: 1px blueviolet solid;
+      display: flex;
+      /* flex-direction: row;
+      flex-wrap: wrap-reverse; */
+      flex-flow: row wrap;
+    }
+
+    article div {
+      width: 100px;
+      height: 100px;
+      background: blueviolet;
+      box-sizing: border-box;
+      padding: 10px;
+      background-clip: content-box;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 80px;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <article>
+
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+
+  </article>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    div[title|='logo'] {
+      color: red;
+    }
+
+    body p:first-child {
+      font-size: 20px;
+      color: red;
+    }
+
+    body p:last-child {
+      font-size: 20px;
+      color: red;
+    }
+
+    article p:last-child {
+      font-size: 20px;
+      color: blue;
+    }
+
+    p:nth-child(1) {
+      font-size: 50px;
+    }
+
+    article span:last-child {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <p>body first p</p>
+  <article>
+    <span>houdunren.com</span>
+    <aside>
+      <strong>hdcms.com</strong>
+      <span>houdunwang.com</span>
+    </aside>
+    <span>hdphp.com</span>
+  </article>
+  <!-- <div class="logo" title="logo-xyz">
+    xx
+  </div>
+  
+
+  <a href="">xxxx</a> -->
+  <article>
+    <p>xxx</p>
+    <p>yyy</p>
+  </article>
+  <p>body last p</p>
+</body>
+
+</html>

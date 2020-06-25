@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Float 布局</title>
+
+  <style>
+    /* 清除浮动，容器适应内容 */
+    .clear-float {
+      clear: both;
+    }
+
+    main,
+    article {
+      border: 3px solid black;
+      width: 620px;
+      margin: 10px auto;
+      clear: both;
+      /* height: 200px; */
+      padding: 20px;
+    }
+
+    div {
+      width: 300px;
+      height: 200px;
+    }
+
+    div:nth-child(1) {
+      border: 1px solid red;
+      box-sizing: border-box;
+      float: left;
+    }
+
+    div:nth-child(2) {
+      background: blue;
+      float: right;
+    }
+
+    /* 行级元素浮动后转换为块级元素 */
+    span {
+      border: 1px solid blue;
+      width: 300px;
+      text-align: center;
+    }
+
+    span:nth-child(1) {
+      float: left;
+    }
+
+    span:nth-child(2) {
+      float: right;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main>
+    <div></div>
+    <div></div>
+    <section class="clear-float"></section>
+  </main>
+
+  <article>
+    <span>nohc</span>
+    <span>chon</span>
+    <section class="clear-float"></section>
+  </article>
+</body>
+
+</html>

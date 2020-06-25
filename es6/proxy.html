@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+  <script>
+    const person = {
+      name: 'nohc',
+      age: 25
+    };
+
+    const personProxy = new Proxy(person, {
+
+      get(target, key) {
+        if (typeof target[key] === 'string')
+          return target[key].toUpperCase();
+        else
+          return target[key];
+      },
+
+      set(target, key, value) {
+        if (typeof value === 'string') {
+          target[key] = value.trim();
+        } else {
+          target[key] = value;
+        }
+      }
+
+    });
+
+
+    console.log(foo1);
+
+    // function foo() {}
+
+    {
+      function foo1() {}
+      // console.log(foo);
+    }
+    console.log(foo1);
+  </script>
+</body>
+
+</html>

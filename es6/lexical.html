@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+  <script>
+    let as$ddf = '我们的定义sd';
+
+    console.log(as$ddf.length);
+    console.log(Math.abs(0.3 - 0.1 - 0.2) <= Number.EPSILON);
+    console.log(typeof new Number('3'));
+
+    var a = Symbol("a");
+    console.log(typeof a); //symbol，a并非对象
+
+    Boolean.prototype.hello = () => {
+      console.log('boolean hello');
+    };
+
+    true.hello();
+
+    console.log(String(0b111));
+
+    console.log(Number('0b111'));
+
+    console.log(parseInt('0x110', 16));
+
+
+    // var o = {
+    //   valueOf: () => {
+    //     console.log("valueOf");
+    //     return {}
+    //   },
+    //   toString: () => {
+    //     console.log("toString");
+    //     return {}
+    //   }
+    // }
+
+    // console.log(o + "");
+
+
+    let template = `${
+          function() {
+            console.log('IIFE');
+          }()
+      }`;
+
+
+    let oo = {
+      b: 1,
+      get a() {
+        return this.b + 1000;
+      },
+      //   set a(val) {
+      //     this.b = val + 1;
+      //   }
+    };
+
+    console.log(oo.a);
+  </script>
+</body>
+
+</html>

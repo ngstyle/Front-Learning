@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .light {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      border-radius: 50%;
+      background-color: lightgray;
+    }
+
+    .red {
+      background-color: red;
+    }
+
+    .yellow {
+      background-color: yellow;
+    }
+
+    .green {
+      background-color: green;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <div class="light" id="red"></div>
+    <div class="light" id="yello"></div>
+    <div class="light" id="green"></div>
+  </div>
+
+  <script>
+
+    async function sleep(delay) {
+      return new Promise(resolve => {
+        setTimeout(resolve, delay);
+      })
+    }
+
+    async function next(ele, cls, delay) {
+      ele.classList.add(cls);
+      await sleep(delay);
+      ele.classList.remove(cls);
+    }
+
+    const red = document.getElementById('red');
+    const yellow = document.getElementById('yello');
+    const green = document.getElementById('green');
+
+    (async () => {
+      while (true) {
+        await next(red, 'red', 10000);
+        await next(yellow, 'yellow', 3000);
+        await next(green, 'green', 10000);
+      }
+    })();
+
+    async function* g() {
+      let i = 0;
+      while (true) {
+        await sleep(1000);
+        yield ++i;
+      }
+    }
+
+    (async () => {
+      for await (let num of g()) {
+        console.log(num);
+      }
+    })();
+
+
+  </script>
+</body>
+
+</html>

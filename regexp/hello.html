@@ -1,0 +1,26 @@
+<body>
+
+</body>
+<script>
+  let str = "chonohc1031ghy0612";
+  let arr = [...str].filter(s => !Number.isNaN(parseInt(s)));
+  console.log(arr.join(''));
+
+
+  let regArr = str.match(/\d{2}/g);
+  console.log(regArr);
+
+
+  // 字面量书写正则
+  console.log(/n/.test('denchon'));
+
+  let v = 'n';
+  console.log(eval(`/${v}/`).test('denchon'));
+
+
+  // new RegExp
+  let ss = '\\d';
+  let regexp = new RegExp(ss, 'g'); // 相当于/n/g
+  let val = regexp.test('ngstyle1031');
+  console.log(val);
+</script>
