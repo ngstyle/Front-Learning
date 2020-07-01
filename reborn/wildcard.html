@@ -72,6 +72,42 @@
       return true;
     }
 
+    /*
+    function isMatch(source, pattern) {
+      let matched = false;
+
+      function rmatch(si, pj, source, pattern) {
+        if (matched) return;
+        if (pj === pattern.length) {
+          if (si === source.length) {
+            matched = true;
+          }
+          return;
+        }
+
+        if (pattern[pj] === '*') {
+          // console.log('laile');
+          while (pattern[++pj] === '*') {
+            // 处理多个※连在一起，当做一个※处理
+          }
+
+
+          for (let k = 0; k <= source.length - si; k++) {
+            rmatch(si + k, pj, source, pattern);
+          }
+        } else if (pattern[pj] === '?') {
+          rmatch(si + 1, pj + 1, source, pattern);
+        } else if (si < source.length && pattern[pj] === source[si]) {
+          rmatch(si + 1, pj + 1, source, pattern);
+        }
+      }
+
+      rmatch(0, 0, source, pattern);
+      return matched;
+    }
+  */
+
+
     // console.log(isMatch('aa', 'a')); // false
     // console.log(isMatch('ab', '*a')); // false
     // console.log(isMatch('aa', '*')); // true
@@ -81,13 +117,17 @@
     // console.log(isMatch('abcdweewfedefdssdsdcd', 'a*c?wee*fd*cdd')); // false
 
 
-    // console.log(isMatch('mississippi', 'm??*ss*?i*pi'));  // false
+    console.log(isMatch('mississippi', 'm??*ss*?i*pi'));  // false
     console.log(isMatch('mississippi', 'm??*ss*?i*')); // true
 
     // console.log(isMatch('abefcdgiescdfimde', 'ab*cd?i*de')); //true
     // console.log(isMatch('hi', '*?'));         // true
 
-    console.log(isMatch('abc', 'abc?*')); // false
+    // console.log(isMatch('abc', 'abc?*')); // false
+    // console.log(isMatch('aaabbbaabaaaaababaabaaabbabbbbbbbbaabababbabbbaaaaba', 'a*******b')); // false
+
+    console.log(isMatch('abbabaaabbabbaababbabbbbbabbbabbbabaaaaababababbbabababaabbababaabbbbbbaaaabababbbaabbbbaabbbbababababbaabbaababaabbbababababbbbaaabbbbbabaaaabbababbbbaababaabbababbbbbababbbabaaaaaaaabbbbbaabaaababaaaabb',
+      '**aa*****ba*a*bb**aa*ab****a*aaaaaa***a*aaaa**bbabb*b*b**aaaaaaaaa*a********ba*bbb***a*ba*bb*bb**a*b*bb')); // false
 
   </script>
 </body>
