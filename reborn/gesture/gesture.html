@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div id='container' style="background: rebeccapurple; width: 100px; height: 100px;"></div>
+</body>
+<script src="./gesture.js"></script>
+<script>
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.addEventListener('selectstart', event => event.preventDefault());
+  document.addEventListener('touchmove', event => event.preventDefault(), { passive: false });
+
+  const el = document.getElementById('container');
+
+  enableGesture(el);
+  let x = 0;
+  let y = 0;
+  el.addEventListener('pan', (event) => {
+    const { startX, startY, clientX, clientY } = event.detail;
+    el.style.transform = `translate(${clientX - startX + x}px,${clientY - startY + y}px)`;
+  })
+
+  el.addEventListener('panend', (event) => {
+    const { startX, startY, clientX, clientY } = event.detail;
+    x = x + clientX - startX;
+    y = y + clientY - startY;
+  })
+
+  el.addEventListener('pan', (event) => {
+    const { startX, startY, clientX, clientY } = event.detail;
+    el.style.transform = `translate(${clientX - startX + x}px,${clientY - startY + y}px)`;
+  })
+
+
+</script>
+
+</html>

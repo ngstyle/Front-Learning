@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel Component</title>
+
+  <style>
+    .carousel {
+      width: 500px;
+      height: 300px;
+      white-space: nowrap;
+      /* outline: solid 3px red; */
+      overflow: hidden;
+      /* zoom: .5; */
+      margin: auto;
+    }
+
+    .carousel>img {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+      /* transition: ease 0.5s; */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <script src="../gesture/gesture.js"></script>
+  <script type="module">
+    import { Timeline, Animation, ColorAnimation } from "../animation/animation.js";
+
+    const data = [
+      "https://static001.geekbang.org/resource/image/bb/21/bb38fb7c1073eaee1755f81131f11d21.jpg",
+      "https://static001.geekbang.org/resource/image/1b/21/1b809d9a2bdf3ecc481322d7c9223c21.jpg",
+      "https://static001.geekbang.org/resource/image/b6/4f/b6d65b2f12646a9fd6b8cb2b020d754f.jpg",
+      "https://static001.geekbang.org/resource/image/73/e4/730ea9c393def7975deceb48b3eb6fe4.jpg",
+    ];
+
+    class Carousel {
+      constructor() {
+        this.root = null;
+        this.data = null;
+      }
+
+      render() {
+        this.root = document.createElement('div');
+        this.root.classList.add('carousel');
+
+        for (const d of this.data) {
+          let el = document.createElement('img');
+          el.src = d;
+          el.addEventListener('dragstart', e => e.preventDefault());
+
+          this.root.append(el);
+        }
+
+        let timeline = null;
+        let position = 0;
+        let handler;
+        let changePositionHandler;
+        let nextPic = () => {
+          let nextPosition = (position + 1) % this.root.childNodes.length;
+
+          let current = this.root.childNodes[position];
+          let next = this.root.childNodes[nextPosition];
+
+          current.style.transition = 'ease 0s';
+          next.style.transition = 'ease 0s';
+          current.style.transform = `translateX(${- 100 * position}%)`;
+          next.style.transform = `translateX(${100 - 100 * nextPosition}%)`;
+
+          timeline = new Timeline();
+          let linear = t => t;
+          let duration = 500;
+          timeline.add(new Animation(current.style, "transform", - 100 * position, -100 - 100 * position, duration, 0, linear, v => `translateX(${v}%)`));
+          timeline.add(new Animation(next.style, "transform", 100 - 100 * nextPosition, - 100 * nextPosition, duration, 0, linear, v => `translateX(${v}%)`));
+          timeline.start();
+
+          // timeline 动画结束后才重置
+          changePositionHandler = setTimeout(() => {
+            position = nextPosition;
+          }, duration);
+          handler = setTimeout(nextPic, 3000);
+        }
+
+        handler = setTimeout(nextPic, 3000);
+
+        enableGesture(this.root);
+        this.root.addEventListener('tap', (event) => {
+          console.log('tap position: ' + position);
+        });
+
+        let prePosition, nextPosition;
+        let pre, current, next;
+        let distanceMoved = 0;
+        this.root.addEventListener('panstart', (event) => {
+          // console.log('panstart');
+          const { startX, startY, clientX, clientY } = event.detail;
+
+          prePosition = (position - 1 + this.data.length) % this.data.length;
+          nextPosition = (position + 1) % this.data.length;
+
+          pre = this.root.childNodes[prePosition];
+          current = this.root.childNodes[position];
+          next = this.root.childNodes[nextPosition];
+
+          clearTimeout(handler);
+          clearTimeout(changePositionHandler);
+          if (timeline && timeline.state === 'playing') {
+            timeline.pause();
+
+            // TODO: 记录动画已经走了多远了
+            distanceMoved = timeline.animations[0].valueFromProgression(timeline.progression) * 5 % 500;
+            console.log("distanceMoved: " + distanceMoved);
+          }
+          pre.style.transition = 'ease 0s';
+          pre.style.transform = `translateX(${-500 - 500 * prePosition + distanceMoved}px)`;
+
+          current.style.transition = 'ease 0s';
+          current.style.transform = `translateX(${- 500 * position + distanceMoved}px)`;
+
+          next.style.transition = 'ease 0s';
+          next.style.transform = `translateX(${500 - 500 * nextPosition + distanceMoved}px)`;
+        });
+
+
+        this.root.addEventListener('pan', (event) => {
+          // console.log('pan');
+          const { startX, startY, clientX, clientY } = event.detail;
+
+          pre.style.transform = `translateX(${clientX - startX - 500 - 500 * prePosition + distanceMoved}px)`;
+          current.style.transform = `translateX(${clientX - startX - 500 * position + distanceMoved}px)`;
+          next.style.transform = `translateX(${clientX - startX + 500 - 500 * nextPosition + distanceMoved}px)`;
+        });
+
+
+        this.root.addEventListener('panend', (event) => {
+          // console.log('panend');
+          const { startX, startY, clientX, clientY, isFlick } = event.detail;
+          handler = setTimeout(nextPic, 3000);
+
+          let offset = 0;
+
+          if (clientX - startX > 150 || clientX - startX + distanceMoved > 250
+            || (clientX - startX + distanceMoved > 0 && isFlick)) {
+            // 走了一半以上 或者 Flick
+            offset = distanceMoved < -250 ? 0 : 1;
+          } else if (clientX - startX < -150 || clientX - startX + distanceMoved < -250
+            || (clientX - startX + distanceMoved < 0 && isFlick)) {
+            offset = distanceMoved > 250 ? 0 : -1
+          }
+
+          pre.style.transition = 'ease 0.5s';
+          current.style.transition = 'ease 0.5s';
+          next.style.transition = 'ease 0.5s';
+
+          pre.style.transform = `translateX(${offset * 500 - 500 - 500 * prePosition}px)`;
+          current.style.transform = `translateX(${offset * 500 - 500 * position}px)`;
+          next.style.transform = `translateX(${offset * 500 + 500 - 500 * nextPosition}px)`;
+
+          distanceMoved = 0;
+          position = (position - offset + this.data.length) % this.data.length;
+        });
+
+        /*
+        this.root.addEventListener('mousedown', (de) => {
+
+          let [startX] = [de.clientX, de.clientY];
+
+          let prePosition = (position - 1 + this.data.length) % this.data.length;
+          let nextPosition = (position + 1) % this.data.length;
+
+          let pre = this.root.childNodes[prePosition];
+          let current = this.root.childNodes[position];
+          let next = this.root.childNodes[nextPosition];
+
+          clearTimeout(handler);
+          if (timeline && timeline.state === 'playing') {
+            timeline.pause();
+          } else {
+            pre.style.transition = 'ease 0s';
+            current.style.transition = 'ease 0s';
+
+            pre.style.transform = `translateX(${-500 - 500 * prePosition}px)`;
+            current.style.transform = `translateX(${- 500 * position}px)`;
+          }
+          next.style.transition = 'ease 0s';
+          next.style.transform = `translateX(${500 - 500 * nextPosition}px)`;
+
+          const moveEvent = (me) => {
+            console.log('moveEvent');
+            // pre.style.transform = `translateX(${me.clientX - startX - 500 - 500 * prePosition}px)`;
+            // current.style.transform = `translateX(${me.clientX - startX - 500 * position}px)`;
+            // next.style.transform = `translateX(${me.clientX - startX + 500 - 500 * nextPosition}px)`;
+          };
+
+          const upEvent = (ue) => {
+            // if (timeline) {
+            //   timeline = null;
+            // }
+            handler = setTimeout(nextPic, 3000);
+
+            let offset = 0;
+
+            if (ue.clientX - startX > 250) {
+              // 拖动一半以上
+              offset = 1;
+            } else if (ue.clientX - startX < -250) {
+              offset = -1
+            }
+
+            pre.style.transition = 'ease 0.5s';
+            current.style.transition = 'ease 0.5s';
+            next.style.transition = 'ease 0.5s';
+
+            pre.style.transform = `translateX(${offset * 500 - 500 - 500 * prePosition}px)`;
+            current.style.transform = `translateX(${offset * 500 - 500 * position}px)`;
+            next.style.transform = `translateX(${offset * 500 + 500 - 500 * nextPosition}px)`;
+
+
+            position = (position - offset + this.data.length) % this.data.length;;
+
+            // [baseX, baseY] = [baseX + ue.clientX - startX, baseY + ue.clientY - startY];
+            document.removeEventListener('mousemove', moveEvent);
+            document.removeEventListener('mouseup', upEvent);
+          };
+
+          document.addEventListener('mousemove', moveEvent);
+          document.addEventListener('mouseup', upEvent);
+        });
+        
+        */
+
+      }
+    }
+
+
+    // create
+    let carousel = new Carousel();
+
+    // update
+    carousel.data = data;
+    carousel.render();
+
+    // mount
+    document.getElementById('container').appendChild(carousel.root);
+
+  </script>
+
+</body>
+
+</html>

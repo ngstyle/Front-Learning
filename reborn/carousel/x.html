@@ -11,7 +11,7 @@
       width: 500px;
       height: 300px;
       white-space: nowrap;
-      /* outline: solid 1px red; */
+      outline: solid 3px red;
       overflow: hidden;
       /* zoom: .5; */
       margin: auto;
@@ -21,7 +21,7 @@
       width: 100%;
       height: 100%;
       display: inline-block;
-      /* transition: ease 0.5s; */
+      transition: ease 0.5s;
     }
   </style>
 </head>
@@ -72,6 +72,7 @@
 
           current.style.transform = `translateX(${- 100 * position}%)`;
           next.style.transform = `translateX(${100 - 100 * nextPosition}%)`;
+          // debugger;
 
           setTimeout(function () {
             current.style.transition = 'ease 0.5s';
@@ -79,11 +80,15 @@
 
             current.style.transform = `translateX(${-100 - 100 * position}%)`;
             next.style.transform = `translateX(${-100 * nextPosition}%)`;
-
+            // debugger;
             position = nextPosition;
           }, 16);
-          // setTimeout(nextPic, 2000);
+
+          // setTimeout(nextPic, 3000);
         }
+
+        // setTimeout(nextPic, 3000);
+
 
         this.root.addEventListener('mousedown', (de) => {
 
@@ -142,7 +147,6 @@
           document.addEventListener('mouseup', upEvent);
         });
 
-        // setTimeout(nextPic, 3000);
       }
     }
 

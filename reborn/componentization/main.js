@@ -1,210 +1,5 @@
-function createElement(Cls, attributes, ...children) {
-  let o;
-  if (typeof Cls === "string") {
-    o = new Wrapper(Cls);
-  } else {
-    o = new Cls();
-  }
-
-  for (const name in attributes) {
-    // o[name] = attributes[name];
-    o.setAttribute(name, attributes[name]);
-  }
-
-  let visit = (children) => {
-    for (const child of children) {
-      if (child instanceof Array) {
-        visit(child);
-        continue;
-      }
-
-      // 处理文字 textNode
-      if (typeof child === "string") {
-        child = new Text(child);
-      }
-      o.appendChild(child);
-    }
-  };
-
-  visit(children);
-
-  return o;
-}
-
-class Text {
-  constructor(text) {
-    this.root = document.createTextNode(text);
-  }
-
-  mountTo(parent) {
-    parent.appendChild(this.root);
-  }
-}
-
-class Wrapper {
-  constructor(type) {
-    this.children = [];
-    this.root = document.createElement(type);
-  }
-
-  set class(v) {
-    // Property
-    console.log("Property: ", v);
-  }
-
-  get style() {
-    return this.root.style;
-  }
-
-  setAttribute(name, value) {
-    // console.log("setAttribute: ", name, value);
-    this.root.setAttribute(name, value);
-  }
-
-  appendChild(child) {
-    // children
-    this.children.push(child);
-  }
-
-  addEventListener() {
-    this.root.addEventListener(...arguments);
-  }
-
-  mountTo(parent) {
-    for (const child of this.children) {
-      if (child instanceof Wrapper || child instanceof Text)
-        child.mountTo(this.root);
-    }
-    parent.appendChild(this.root);
-  }
-}
-
-class Carousel {
-  constructor() {
-    this.children = [];
-  }
-
-  setAttribute(name, value) {
-    this[name] = value;
-  }
-
-  appendChild(child) {
-    // children
-    this.children.push(child);
-  }
-
-  render() {
-    const children = this.data.map((url) => {
-      let element = <img src={url} />;
-      element.addEventListener("dragstart", (e) => e.preventDefault());
-      return element;
-    });
-    const root = <div class="carousel">{...children}</div>;
-
-    let position = 0;
-    let nextPic = () => {
-      let nextPosition = (position + 1) % children.length;
-
-      let current = children[position];
-      let next = children[nextPosition];
-
-      // current.style.transition = 'ease 0s';
-      // next.style.transition = 'ease 0s';
-      current.style.transition = "none";
-      next.style.transition = "none";
-
-      current.style.transform = `translateX(${-100 * position}%)`;
-      next.style.transform = `translateX(${100 - 100 * nextPosition}%)`;
-
-      setTimeout(function () {
-        current.style.transition = "ease 0.5s";
-        next.style.transition = "ease 0.5s";
-
-        current.style.transform = `translateX(${-100 - 100 * position}%)`;
-        next.style.transform = `translateX(${-100 * nextPosition}%)`;
-
-        position = nextPosition;
-      }, 16);
-      setTimeout(nextPic, 2000);
-    };
-    setTimeout(nextPic, 3000);
-
-    root.addEventListener("mousedown", (de) => {
-      // console.log('down:' + de.clientX, de.clientY);
-      let [startX] = [de.clientX, de.clientY];
-
-      let prePosition = (position - 1 + this.data.length) % this.data.length;
-      let nextPosition = (position + 1) % this.data.length;
-
-      let pre = children[prePosition];
-      let current = children[position];
-      let next = children[nextPosition];
-
-      pre.style.transition = "ease 0s";
-      current.style.transition = "ease 0s";
-      next.style.transition = "ease 0s";
-
-      pre.style.transform = `translateX(${-500 - 500 * prePosition}px)`;
-      current.style.transform = `translateX(${-500 * position}px)`;
-      next.style.transform = `translateX(${500 - 500 * nextPosition}px)`;
-
-      const moveEvent = (me) => {
-        pre.style.transform = `translateX(${
-          me.clientX - startX - 500 - 500 * prePosition
-        }px)`;
-        current.style.transform = `translateX(${
-          me.clientX - startX - 500 * position
-        }px)`;
-        next.style.transform = `translateX(${
-          me.clientX - startX + 500 - 500 * nextPosition
-        }px)`;
-      };
-
-      const upEvent = (ue) => {
-        let offset = 0;
-
-        if (ue.clientX - startX > 250) {
-          // 拖动一半以上
-          offset = 1;
-        } else if (ue.clientX - startX < -250) {
-          offset = -1;
-        }
-
-        pre.style.transition = "ease 0.5s";
-        current.style.transition = "ease 0.5s";
-        next.style.transition = "ease 0.5s";
-
-        pre.style.transform = `translateX(${
-          offset * 500 - 500 - 500 * prePosition
-        }px)`;
-        current.style.transform = `translateX(${
-          offset * 500 - 500 * position
-        }px)`;
-        next.style.transform = `translateX(${
-          offset * 500 + 500 - 500 * nextPosition
-        }px)`;
-
-        position = (position - offset + this.data.length) % this.data.length;
-
-        document.removeEventListener("mousemove", moveEvent);
-        document.removeEventListener("mouseup", upEvent);
-      };
-
-      document.addEventListener("mousemove", moveEvent);
-      document.addEventListener("mouseup", upEvent);
-    });
-
-    return root;
-  }
-
-  mountTo(parent) {
-    for (const child of this.children) {
-      this.slot.appendChild(child);
-    }
-
-    this.render().mountTo(parent);
-  }
-}
+import Carousel from "./Carousel";
+import { createElement, Text, Wrapper } from "./createElement";
 
 const data = [
   "https://static001.geekbang.org/resource/image/bb/21/bb38fb7c1073eaee1755f81131f11d21.jpg",
@@ -213,5 +8,42 @@ const data = [
   "https://static001.geekbang.org/resource/image/73/e4/730ea9c393def7975deceb48b3eb6fe4.jpg",
 ];
 
-let component = <Carousel data={data} />;
+let content = data.map((url) => <img src={url}></img>);
+
+let component = (
+  // <Carousel data={data} effect={"linear"} autoPlaySpeed={4000} autoplay={true} >
+  <Carousel
+    className="carousel"
+    effect={"ease"}
+    // effect={"fade"}
+    autoPlaySpeed={3000}
+    autoplay={true}
+    beforeChange={(from, to) => {
+      // console.log("from: " + from, "to: " + to);
+    }}
+    afterChanged={(current) => {
+      console.log("current: " + current);
+    }}
+  >
+    {content}
+  </Carousel>
+);
 component.mountTo(document.body);
+
+let pre = <button click={() => component.pre()}>Pre</button>;
+let next = <button click={() => component.next()}>Next</button>;
+let goto = <button click={() => component.goto(3)}>Goto(3)</button>;
+let actions = (
+  <div style="text-align: center; margin-top: 16px">
+    {pre} {next} {goto}
+  </div>
+);
+actions.mountTo(document.body);
+/*
+// Vue style component
+
+import Carousel from "./carousel.vue";
+
+let component = new Carousel();
+component.mountTo(document.body);
+*/
