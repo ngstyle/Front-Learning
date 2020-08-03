@@ -22,7 +22,13 @@ module.exports = {
       {
         test: /\.vue/,
         use: {
-          loader: require.resolve("./myloader.js"),
+          loader: require.resolve("./loader/myloader.js"),
+        },
+      },
+      {
+        test: /\.css/,
+        use: {
+          loader: require.resolve("./loader/css-loader.js"),
         },
       },
     ],

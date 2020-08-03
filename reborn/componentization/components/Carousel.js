@@ -1,6 +1,7 @@
-import { Timeline, Animation } from "./animation";
-import cubicBezier from "./cubicBezier";
-import { createElement, Text, Wrapper } from "./createElement";
+import { Timeline, Animation } from "../base/animation";
+import cubicBezier from "../base/cubicBezier";
+import { createElement, Text, Wrapper } from "../util/createElement";
+import css from "./carousel.css";
 
 const linear = (t) => t;
 const ease = cubicBezier(0.25, 0.1, 0.25, 1);

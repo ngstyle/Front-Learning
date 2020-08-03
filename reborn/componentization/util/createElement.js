@@ -1,4 +1,4 @@
-import { enableGesture } from "./gesture";
+import { enableGesture } from "../base/gesture";
 
 export function createElement(Cls, attributes, ...children) {
   let o;
@@ -78,6 +78,14 @@ export class Wrapper {
     if (name === "click") {
       this.addEventListener(name, value);
     }
+  }
+
+  getAttribute(name) {
+    return this.root.getAttribute(name);
+  }
+
+  get classList() {
+    return this.root.classList;
   }
 
   appendChild(child) {
